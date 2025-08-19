@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ inicio.titulo_principal|default:"Barbería - Inicio" }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ inicio.imagen_principal.url }}') center/cover no-repeat;">
+    <div class="hero-content fade-in-up">
+    {% if inicio.img_prin %}
+    <img src="{{ inicio.img_prin.url }}" alt="Imagen principal" class="titulo-imagen">
+    {% else %}
+    <h1>{{ inicio.sobre_titulo|default:"Tu Barbería de Confianza" }}</h1>
+    {% endif %}
+
+    <div class="hero-texto">
+        <p class="subtitle">{{ inicio.subtitulo|default:"Estilo, Calidad y Tradición" }}</p>
+        <p class="hero-description">
+            {{ inicio.contenido|default:"Descubre la experiencia única de una barbería moderna con el toque clásico que buscas." }}
+        </p>
+        <div class="cta-buttons">
+            {% if contacto.whatsapp %}
+            <a href="https://wa.me/{{ contacto.whatsapp }}?text=Hola, me gustaría reservar una cita" class="btn-primary" target="_blank">
+                <i class="fab fa-whatsapp"></i> Reservar Cita
+            </a>
+            {% endif %}
+            <a href="#servicios" class="btn-secondary">
+                <i class="fas fa-cut"></i> Ver Servicios
+            </a>
+        </div>
+    </div>
+</div>
+
+</section>
+
+
+
+<!-- About Section -->
+{% if inicio.sobre_titulo or inicio.sobre_contenido %}
+<section class="section section-light" id="sobre-nosotros">
+    <div class="container">
+        <h2 class="section-title">{{ inicio.sobre_titulo|default:"Sobre Nosotros" }}</h2>
+        <div class="grid-about">
+            <div>
+                <p class="text-large">
+                    {{ inicio.sobre_contenido|default:"Somos una barbería con años de experiencia ofreciendo los mejores servicios de corte y cuidado personal. Nuestro equipo de profesionales está comprometido con la excelencia y la satisfacción de nuestros clientes." }}
+                </p>
+                
+                <!-- Statistics -->
+                {% if inicio.anos_experiencia or inicio.clientes_satisfechos or inicio.cortes_realizados %}
+                <div class="grid-stats">
+                    {% if inicio.anos_experiencia %}
+                    <div>
+                        <div class="stat-number">{{ inicio.anos_experiencia }}+</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                    {% endif %}
+                    {% if inicio.clientes_satisfechos %}
+                    <div>
+                        <div class="stat-number">{{ inicio.clientes_satisfechos }}+</div>
+                        <div class="stat-label">Clientes Satisfechos</div>
+                    </div>
+                    {% endif %}
+                    {% if inicio.cortes_realizados %}
+                    <div>
+                        <div class="stat-number">{{ inicio.cortes_realizados }}+</div>
+                        <div class="stat-label">Cortes Realizados</div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div>
+                {% if inicio.sobre_imagen %}
+                <img src="{{ inicio.sobre_imagen.url }}" alt="Sobre nosotros" class="image-rounded">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Services Section -->
+<section class="section section-dark" id="servicios">
+    <div class="container">
+        <h2 class="section-title">Servicios que Superan tus Expectativas</h2>
+        <div class="grid-services">
+            <!-- Service cards will be generated from database -->
+            <div class="service-card">
+                <div class="icon-gold">
+                    <i class="fas fa-cut"></i>
+                </div>
+                <h3 class="subtitle-gold">Corte Clásico y Moderno</h3>
+                <p class="text-light">Cortes tradicionales y tendencias actuales adaptados a tu estilo personal.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="icon-gold">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3 class="subtitle-gold">Arreglo de Barba Premium</h3>
+                <p class="text-light">Cuidado profesional de barba con productos de alta calidad.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="icon-gold">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3 class="subtitle-gold">Tratamientos Especiales</h3>
+                <p class="text-light">Decoloraciones, tintes y tratamientos capilares profesionales.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="section section-light" id="galeria">
+    <div class="container">
+        <h2 class="section-title">Algunos de Nuestros Trabajos</h2>
+        <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 3rem;">
+            Consulta nuestra galería y déjate inspirar por nuestros trabajos
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            {% for foto in galeria %}
+            <div style="position: relative; overflow: hidden; border-radius: 15px; aspect-ratio: 1; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <img src="{{ foto.imagen.url }}" alt="{{ foto.descripcion }}" style="width: 100%; height: 100%; object-fit: cover;">
+                {% if foto.descripcion %}
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); color: white; padding: 1rem; text-align: center;">
+                    <p style="margin: 0; font-weight: 500;">{{ foto.descripcion }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+                <i class="fas fa-images" style="font-size: 3rem; margin-bottom: 1rem; color: #d4af37;"></i>
+                <p>Próximamente agregaremos nuestra galería de trabajos.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="section section-dark">
+    <div class="container" style="text-align: center;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; color: #d4af37;">
+            ¿Listo para tu nuevo look?
+        </h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #ccc;">
+            Reserva tu cita ahora y experimenta el mejor servicio de barbería
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            {% if contacto.whatsapp %}
+            <a href="https://wa.me/{{ contacto.whatsapp }}?text=Hola, me gustaría reservar una cita" class="btn-primary" target="_blank">
+                <i class="fab fa-whatsapp"></i> Reservar por WhatsApp
+            </a>
+            {% endif %}
+            {% if contacto.telefono %}
+            <a href="tel:{{ contacto.telefono }}" class="btn-secondary">
+                <i class="fas fa-phone"></i> Llamar Ahora
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

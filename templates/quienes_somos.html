@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ quienes_somos.titulo|default:"Quiénes Somos" }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero hero-small">
+    <div class="hero-content fade-in-up">
+        <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
+        <p class="subtitle">Conoce nuestra historia y pasión por la barbería</p>
+    </div>
+</section>
+
+<!-- Main Content Section -->
+<section class="section section-light">
+    <div class="container">
+        <div class="grid-about">
+            <div>
+                {% if quienes_somos.imagen %}
+                <img src="{{ quienes_somos.imagen.url }}" alt="Quiénes somos" class="image-about">
+                {% endif %}
+            </div>
+            <div>
+                <h2 class="title-gold">
+                    Nuestra Historia
+                </h2>
+                <p class="text-large">
+                    {{ quienes_somos.contenido|default:"Somos una barbería con tradición y experiencia en el arte del cuidado masculino. Nuestro compromiso es ofrecer un servicio de calidad excepcional, combinando técnicas tradicionales con las últimas tendencias en cortes y estilos." }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Historia Section -->
+        {% if quienes_somos.historia_titulo or quienes_somos.historia_contenido %}
+        <div class="history-section">
+            <h3 class="title-gold-center">
+                {{ quienes_somos.historia_titulo|default:"Nuestra Trayectoria" }}
+            </h3>
+            
+            <div class="grid-two-columns">
+                <div>
+                    <p class="text-large">
+                        {{ quienes_somos.historia_contenido|default:"Desde nuestros inicios, hemos mantenido un compromiso firme con la excelencia y la satisfacción de nuestros clientes. Cada corte es una obra de arte, cada cliente es único." }}
+                    </p>
+                </div>
+                <div>
+                    {% if quienes_somos.historia_imagen %}
+                    <img src="{{ quienes_somos.historia_imagen.url }}" alt="Historia" class="image-rounded-small">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Mission, Vision, Values -->
+        {% if quienes_somos.mision or quienes_somos.vision or quienes_somos.valores %}
+        <div class="grid-values">
+            {% if quienes_somos.mision %}
+            <div class="value-card">
+                <div class="icon-gold">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="subtitle-gold">Misión</h3>
+                <p class="text-normal">{{ quienes_somos.mision }}</p>
+            </div>
+            {% endif %}
+
+            {% if quienes_somos.vision %}
+            <div class="value-card">
+                <div class="icon-gold">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3 class="subtitle-gold">Visión</h3>
+                <p class="text-normal">{{ quienes_somos.vision }}</p>
+            </div>
+            {% endif %}
+
+            {% if quienes_somos.valores %}
+            <div class="value-card">
+                <div class="icon-gold">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="subtitle-gold">Valores</h3>
+                <p class="text-normal">{{ quienes_somos.valores }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section section-dark">
+    <div class="container" style="text-align: center;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; color: #d4af37;">
+            ¿Quieres conocernos mejor?
+        </h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #ccc;">
+            Ven a visitarnos y descubre por qué somos la barbería de confianza de tantos clientes
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'contacto' %}" class="btn-primary">
+                <i class="fas fa-map-marker-alt"></i> Cómo Llegar
+            </a>
+            {% if contacto.whatsapp %}
+            <a href="https://wa.me/{{ contacto.whatsapp }}?text=Hola, me gustaría más información" class="btn-secondary" target="_blank">
+                <i class="fab fa-whatsapp"></i> Contactar
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

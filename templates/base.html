@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% if inicio %}{{ inicio.titulo_principal }}{% else %}Barbería{% endif %}{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v={% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}?v={% now 'U' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <!-- Barra superior con dirección -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="address-navbar">
+                    <a href="https://maps.app.goo.gl/gN9jCVDeXVrdhRir7" target="_blank" class="address-link" title="Ver ubicación en Google Maps">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Calle Ejemplo #123, Centro, Ciudad</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navbar principal -->
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/media/{{ contacto.logo_navbar }}" alt="">
+                </a>
+            </div>            <ul class="nav-menu">
+                <li><a href="{% url 'inicio' %}" class="nav-link">Inicio</a></li>
+                <li><a href="{% url 'quienes_somos' %}" class="nav-link">Quiénes Somos</a></li>
+                <li><a href="{% url 'contacto' %}" class="nav-link">Contacto</a></li>
+            </ul>
+            
+            <!-- Contenedor derecho con redes sociales y botón llamar -->
+            <div class="right-section">
+                <!-- Redes Sociales -->
+                <div class="social-navbar">
+                    <a href="https://www.instagram.com/" target="_blank" class="social-nav-link" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" class="social-nav-link" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/1234567890" target="_blank" class="social-nav-link" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                
+                <!-- Botón Llamar -->
+                {% if contacto.telefono %}
+                <a href="tel:{{ contacto.telefono }}" class="contact-btn">
+                    <i class="fas fa-phone"></i> Llamar
+                </a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                {% if contacto %}
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    {% if contacto.direccion %}<p><i class="fas fa-map-marker-alt"></i> {{ contacto.direccion }}</p>{% endif %}
+                    {% if contacto.telefono %}<p><i class="fas fa-phone"></i> <a href="tel:{{ contacto.telefono }}">{{ contacto.telefono }}</a></p>{% endif %}
+                    {% if contacto.email %}<p><i class="fas fa-envelope"></i> <a href="mailto:{{ contacto.email }}">{{ contacto.email }}</a></p>{% endif %}
+                </div>
+                {% endif %}
+                
+                <div class="footer-section">
+                    <h3>Horarios</h3>
+                    {% if contacto %}
+                        {% if contacto.horario_lunes_viernes %}<p>Lunes - Viernes: {{ contacto.horario_lunes_viernes }}</p>{% endif %}
+                        {% if contacto.horario_sabados %}<p>Sábados: {{ contacto.horario_sabados }}</p>{% endif %}
+                        {% if contacto.horario_domingos %}<p>Domingos: {{ contacto.horario_domingos }}</p>{% endif %}
+                    {% else %}
+                        <p>Lunes - Viernes: 9:00 - 20:00</p>
+                        <p>Sábados: 9:00 - 18:00</p>
+                        <p>Domingos: Cerrado</p>
+                    {% endif %}
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <div class="social-links">
+                        {% if contacto.facebook %}<a href="{{ contacto.facebook }}" class="social-link" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>{% endif %}
+                        {% if contacto.instagram %}<a href="{{ contacto.instagram }}" class="social-link" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>{% endif %}
+                        {% if contacto.tiktok %}<a href="{{ contacto.tiktok }}" class="social-link" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>{% endif %}
+                        {% if contacto.youtube %}<a href="{{ contacto.youtube }}" class="social-link" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>{% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} {% if contacto %}{{ contacto.nombre_empresa|default:"Barbería" }}{% else %}Barbería{% endif %}. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    {% if contacto.whatsapp %}
+    <a href="https://wa.me/{{ contacto.whatsapp }}?text=Hola, me gustaría reservar una cita" class="whatsapp-float" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    {% endif %}
+
+    <!-- JavaScript Files -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    <!-- Script directo para efecto navbar scroll -->
+    <script>
+        // FORZAR QUE SIEMPRE INICIE EN EL TOPE AL RECARGAR
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Al cargar la página, asegurar que esté en el tope
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+                console.log('🔝 Página forzada al tope');
+            }, 10);
+        });
+        
+        function iniciarEfectoNavbar() {
+            console.log('🚀 Iniciando efecto navbar - USANDO CLASES CSS');
+            
+            // Forzar scroll al tope inmediatamente
+            window.scrollTo(0, 0);
+            
+            const header = document.querySelector('.header');
+            
+            if (!header) {
+                console.log('❌ Header no encontrado');
+                return;
+            }
+            
+            console.log('✅ Header encontrado:', header);
+            
+            function cambiarNavbar() {
+                const scrollY = Math.max(window.pageYOffset || 0, document.documentElement.scrollTop || 0, document.body.scrollTop || 0);
+                console.log('📊 Scroll posición:', scrollY);
+                
+                // USAR CLASES CSS en lugar de estilos inline
+                if (scrollY === 0) {
+                    // Quitar clase scrolled - usar estilos CSS por defecto
+                    header.classList.remove('scrolled');
+                    console.log('🌑 Navbar OSCURO (clase CSS .header)');
+                } else {
+                    // Agregar clase scrolled - usar estilos CSS de .header.scrolled
+                    header.classList.add('scrolled');
+                    console.log('💎 Navbar TRANSPARENTE (clase CSS .header.scrolled)');
+                }
+            }
+            
+            // Event listener simple y directo
+            window.addEventListener('scroll', cambiarNavbar, { passive: true });
+            
+            // Estado inicial - debe estar oscuro (sin clase scrolled)
+            setTimeout(function() {
+                header.classList.remove('scrolled'); // Asegurar estado inicial
+                cambiarNavbar();
+                console.log('🎯 Estado inicial aplicado con clases CSS');
+            }, 50);
+            
+            console.log('🎯 Navbar configurado - Ahora usa archivos CSS externos');
+        }
+        
+        // Ejecutar cuando esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', iniciarEfectoNavbar);
+        } else {
+            iniciarEfectoNavbar();
+        }
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

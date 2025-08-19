@@ -1,0 +1,18 @@
+{
+    "python-envs.pythonProjects": [],
+    "python.pythonPath": "./venv/Scripts/python.exe",
+    "python.defaultInterpreterPath": "./venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.analysis.extraPaths": [
+        "./venv/Lib/site-packages"
+    ],
+    "python.analysis.autoImportCompletions": true,
+    "pylint.args": [
+        "--load-plugins=pylint_django",
+        "--django-settings-module=barberweb.settings"
+    ],
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django",
+        "--django-settings-module=barberweb.settings"
+    ]
+}
