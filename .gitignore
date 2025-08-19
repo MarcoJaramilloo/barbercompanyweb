@@ -1,0 +1,14 @@
+# Entorno virtual
+venv/
+ENV/
+env/
+
+# Archivos de Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.pdb
+
+# Archivos de base de datos SQLite (solo locales)
+db.sqlite3
