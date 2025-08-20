@@ -31,8 +31,8 @@ body {
 
 /* Clase para cuando se hace scroll - navbar transparente y desenfocado */
 .header.scrolled {
-    background: rgba(0, 0, 0, 0.2) !important; /* Muy transparente al hacer scroll */
-    backdrop-filter: blur(15px) !important; /* Más desenfoque */
+    background: rgba(0, 0, 0, 0.5) !important; /* Muy transparente al hacer scroll */
+    backdrop-filter: blur(25px) !important; /* Más desenfoque */
 }
 
 /* Barra superior con dirección */
@@ -53,7 +53,7 @@ body {
     background: transparent; /* Transparente para usar el fondo del header */
     backdrop-filter: none; /* Ya se aplica en el header */
     transition: all 0.3s ease;
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -76,7 +76,7 @@ body {
 }
 
 .header .nav-container .logo img {
-    height: 80px !important;
+    height: 110px !important;
     max-width: 500px !important;
     width: auto !important;
     object-fit: contain !important;
@@ -86,7 +86,9 @@ body {
 
 /* Dirección en la izquierda del navbar */
 .address-navbar {
+    margin-top: 0rem; /* Espacio pequeño arriba de la dirección */
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -113,20 +115,21 @@ body {
 .right-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 0.5rem;
+    align-items: center ;
+    gap: 0rem;
 }
 
 /* Redes Sociales en Navbar */
 .social-navbar {
     display: flex;
-    gap: 1.5rem; /* Más separación entre íconos */
-    align-items: center;
+    gap: 1rem; /* Espacio entre los iconos, ajusta el valor según lo que necesites */
+    margin-bottom: 0rem;
+    
 }
 
 .social-nav-link {
     color: #d4af37;
-    font-size: 1.5rem; /* Íconos más grandes */
+    font-size: 1.8rem; /* Íconos más grandes */
     transition: all 0.3s ease;
     text-decoration: none;
 }
@@ -186,7 +189,7 @@ body {
 
 /* Main Content */
 main {
-    margin-top: 163px; /* Más arriba - reducido desde 185px */
+    margin-top: 109px; /* Más arriba - reducido desde 185px */
 }
 
 /* Hero Section */
@@ -223,42 +226,36 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Desde arriba */
-    margin-top: -12rem;
 }
 
+/* Imagen del título principal */
+.titulo-imagen {
+    display: block;
+    margin: -15rem auto 1rem auto; /* espacio desde navbar + separación con subtítulo */
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px; /* opcional */
+}
+
+/* Bloque de texto */
 .hero-texto {
-    margin-top: 1.5rem; /* Ajusta para acercar o separar */
+    margin-top: -12rem; /* sube el subtítulo+texto independientemente */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: -10000rem; /* Separación entre subtítulo, contenido y botones */
+    gap: 0.8rem;
 }
 
-.hero img {
-    display: block;
-    margin: 0 auto;
-    max-width: 80%;
-    height: auto;
-    border-radius: 10px; /* opcional, para que se vea más bonito */
-}
-
+/* Textos */
 .hero h1, .hero .subtitle, .hero-description {
-    margin: 0; /* eliminamos márgenes extra */
-}
-
-.titulo-imagen {
-    display: block;
-    margin: 0 auto 0.1rem auto;
-    max-width: 80%;
-    height: auto;
+    margin: 0;
 }
 
 .hero .subtitle {
     font-size: 1.3rem;
     color: #d4af37;
     font-weight: 300;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0rem;
     text-align: center;
 }
 
@@ -266,19 +263,13 @@ main {
     font-size: 1.1rem;
     line-height: 1.8;
     max-width: 90%;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     text-align: center;
 }
 
+/* Botones */
 .cta-buttons {
     margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.cta-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
@@ -323,6 +314,7 @@ main {
     color: #000;
     transform: translateY(-3px);
 }
+
 
 /* Sections */
 .section {
