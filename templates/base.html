@@ -21,17 +21,6 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <!-- Barra superior con dirección -->
-        <div class="top-bar">
-            <div class="container">
-                <div class="address-navbar">
-                    <a href="https://maps.app.goo.gl/gN9jCVDeXVrdhRir7" target="_blank" class="address-link" title="Ver ubicación en Google Maps">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Calle Ejemplo #123, Centro, Ciudad</span>
-                    </a>
-                </div>
-            </div>
-        </div>
         
         <!-- Navbar principal -->
         <nav class="nav-container">
@@ -59,13 +48,25 @@
                         <i class="fab fa-whatsapp"></i>
                     </a>
                 </div>
+                <!-- Barra superior con dirección -->
+                <div class="top-bar">
+                    <div class="container">
+                        <div class="address-navbar">
+                            <a href="https://maps.app.goo.gl/gN9jCVDeXVrdhRir7" target="_blank" class="address-link" title="Ver ubicación en Google Maps">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Calle Ejemplo #123, Centro, Ciudad</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
                 
                 <!-- Botón Llamar -->
-                {% if contacto.telefono %}
+                <!--{% if contacto.telefono %}
                 <a href="tel:{{ contacto.telefono }}" class="contact-btn">
                     <i class="fas fa-phone"></i> Llamar
                 </a>
-                {% endif %}
+                {% endif %}-->
             </div>
         </nav>
     </header>

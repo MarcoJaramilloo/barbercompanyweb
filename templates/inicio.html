@@ -7,31 +7,34 @@
 <!-- Hero Section -->
 <section class="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ inicio.imagen_principal.url }}') center/cover no-repeat;">
     <div class="hero-content fade-in-up">
-    {% if inicio.img_prin %}
-    <img src="{{ inicio.img_prin.url }}" alt="Imagen principal" class="titulo-imagen">
-    {% else %}
-    <h1>{{ inicio.sobre_titulo|default:"Tu Barbería de Confianza" }}</h1>
-    {% endif %}
 
-    <div class="hero-texto">
-        <p class="subtitle">{{ inicio.subtitulo|default:"Estilo, Calidad y Tradición" }}</p>
-        <p class="hero-description">
-            {{ inicio.contenido|default:"Descubre la experiencia única de una barbería moderna con el toque clásico que buscas." }}
-        </p>
-        <div class="cta-buttons">
-            {% if contacto.whatsapp %}
-            <a href="https://wa.me/{{ contacto.whatsapp }}?text=Hola, me gustaría reservar una cita" class="btn-primary" target="_blank">
-                <i class="fab fa-whatsapp"></i> Reservar Cita
-            </a>
-            {% endif %}
-            <a href="#servicios" class="btn-secondary">
-                <i class="fas fa-cut"></i> Ver Servicios
-            </a>
+        {% if inicio.img_prin %}
+            <img src="{{ inicio.img_prin.url }}" alt="Imagen principal" class="titulo-imagen">
+        {% else %}
+            <h1>{{ inicio.sobre_titulo|default:"Tu Barbería de Confianza" }}</h1>
+        {% endif %}
+
+        <div class="hero-texto">
+            <p class="subtitle">{{ inicio.subtitulo|default:"Estilo, Calidad y Tradición" }}</p>
+            <p class="hero-description">
+                {{ inicio.contenido|default:"Descubre la experiencia única de una barbería moderna con el toque clásico que buscas." }}
+            </p>
+
+            <div class="cta-buttons">
+                {% if contacto.whatsapp %}
+                    <a href="https://wa.me/{{ contacto.whatsapp }}?text=Hola, me gustaría reservar una cita" 
+                       class="btn-primary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Reservar Cita
+                    </a>
+                {% endif %}
+                <a href="#servicios" class="btn-secondary">
+                    <i class="fas fa-cut"></i> Ver Servicios
+                </a>
+            </div>
         </div>
     </div>
-</div>
-
 </section>
+
 
 
 
