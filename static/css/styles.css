@@ -291,7 +291,7 @@ main {
 /* Imagen del título principal */
 .titulo-imagen {
     display: block;
-    margin: 0 auto 0.5rem auto; /* Reducido de 1rem a 0.5rem para aún menos espacio */
+    margin: -15rem auto 0.5rem auto; /* Reducido de 1rem a 0.5rem para aún menos espacio */
     max-width: 90%;
     height: auto;
     border-radius: 10px; /* opcional */
@@ -299,7 +299,7 @@ main {
 
 /* Bloque de texto */
 .hero-texto {
-    margin-top: 0; /* Sin margin-top negativo para evitar superposición */
+    margin-top: -12rem; /* Sin margin-top negativo para evitar superposición */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -712,13 +712,13 @@ main {
 
     /* Ajustes específicos para imagen del logo en móvil - MÁS ARRIBA */
     .titulo-imagen {
-        max-width: 85% !important;
-        margin: -10px auto 0.3rem auto !important; /* Reducido espacio inferior de 0.8rem a 0.3rem */
+        max-width: 85% !important; 
+        margin: -250px auto 20rem auto !important; /* Reducido espacio inferior de 0.8rem a 0.3rem */
     }
 
     .hero-texto {
-        margin-top: 0 !important;
-        gap: 0.8rem !important;
+        margin-top: -23rem !important;
+        gap: 0rem !important;
     }
 
     .hero-description {
