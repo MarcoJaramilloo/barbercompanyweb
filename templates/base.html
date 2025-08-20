@@ -28,11 +28,33 @@
                 <a href="/">
                     <img src="/media/{{ contacto.logo_navbar }}" alt="">
                 </a>
-            </div>            <ul class="nav-menu">
-                <li><a href="{% url 'inicio' %}" class="nav-link">Inicio</a></li>
-                <li><a href="{% url 'quienes_somos' %}" class="nav-link">Quiénes Somos</a></li>
-                <li><a href="{% url 'contacto' %}" class="nav-link">Contacto</a></li>
+            </div>
+            
+            <!-- Iconos de redes sociales en móvil (junto al logo) -->
+            <div class="mobile-social-nav">
+                <a href="https://wa.me/1234567890" target="_blank" class="mobile-social-icon" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="mobile-social-icon" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/" target="_blank" class="mobile-social-icon" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="{% url 'inicio' %}" class="nav-link {% if request.resolver_match.url_name == 'inicio' %}active{% endif %}">Inicio</a></li>
+                <li><a href="{% url 'quienes_somos' %}" class="nav-link {% if request.resolver_match.url_name == 'quienes_somos' %}active{% endif %}">Quiénes Somos</a></li>
+                <li><a href="{% url 'contacto' %}" class="nav-link {% if request.resolver_match.url_name == 'contacto' %}active{% endif %}">Contacto</a></li>
             </ul>
+            
+            <!-- Botón hamburguesa para móvil -->
+            <button class="mobile-menu-btn" aria-label="Abrir menú">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             
             <!-- Contenedor derecho con redes sociales y botón llamar -->
             <div class="right-section">
@@ -128,6 +150,7 @@
 
     <!-- JavaScript Files -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/mobile-menu.js' %}"></script>
     
     <!-- Script directo para efecto navbar scroll -->
     <script>

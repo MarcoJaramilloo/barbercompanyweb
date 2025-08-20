@@ -298,3 +298,71 @@ const dynamicStyles = `
 const styleSheet = document.createElement('style');
 styleSheet.textContent = dynamicStyles;
 document.head.appendChild(styleSheet);
+
+    // ==========================================================================
+    // MENÚ HAMBURGUESA MÓVIL
+    // ==========================================================================
+    
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    console.log('🍔 Botón hamburguesa:', mobileMenuBtn);
+    console.log('📱 Menú navegación:', navMenu);
+    
+    if (mobileMenuBtn && navMenu) {
+        console.log('✅ Elementos del menú móvil encontrados');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            console.log('🍔 Click en botón hamburguesa'); // Debug
+            
+            // Toggle clase active en el botón hamburguesa
+            mobileMenuBtn.classList.toggle('active');
+            
+            // Toggle clase active en el menú
+            navMenu.classList.toggle('active');
+            
+            console.log('📱 Clases del menú:', navMenu.classList);
+            
+            // Prevenir scroll cuando el menú está abierto
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+                console.log('🔒 Menú abierto desde la derecha'); // Debug
+            } else {
+                document.body.style.overflow = '';
+                console.log('🔓 Menú cerrado'); // Debug
+            }
+        });
+
+        // Cerrar menú al hacer click en un enlace de navegación (no en redes sociales)
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Cerrar menú al hacer click fuera de él
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = navMenu.contains(event.target);
+            const isClickOnButton = mobileMenuBtn.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnButton && navMenu.classList.contains('active')) {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Cerrar menú al presionar escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+});
