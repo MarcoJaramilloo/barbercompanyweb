@@ -145,6 +145,66 @@ body {
     gap: 2rem;
 }
 
+/* Ocultar elementos móviles en desktop - YA NO SE NECESITAN */
+.mobile-social-nav {
+    display: none;
+}
+
+/* Botón hamburguesa - oculto por defecto */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.mobile-menu-btn:focus {
+    outline: 2px solid #d4af37;
+    outline-offset: 2px;
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    display: block;
+}
+
+/* Estados del botón hamburguesa cuando está activo */
+.mobile-menu-btn.active {
+    background: rgba(212, 175, 55, 0.2);
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+    background: #d4af37;
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+    background: #d4af37;
+}
+
 .nav-link {
     color: #fff;
     text-decoration: none;
@@ -231,7 +291,7 @@ main {
 /* Imagen del título principal */
 .titulo-imagen {
     display: block;
-    margin: -15rem auto 1rem auto; /* espacio desde navbar + separación con subtítulo */
+    margin: 0 auto 0.5rem auto; /* Reducido de 1rem a 0.5rem para aún menos espacio */
     max-width: 90%;
     height: auto;
     border-radius: 10px; /* opcional */
@@ -239,11 +299,11 @@ main {
 
 /* Bloque de texto */
 .hero-texto {
-    margin-top: -12rem; /* sube el subtítulo+texto independientemente */
+    margin-top: 0; /* Sin margin-top negativo para evitar superposición */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.5rem; /* Reducido de 0.8rem a 0.5rem para elementos más juntos */
 }
 
 /* Textos */
@@ -446,40 +506,200 @@ main {
         display: none; /* Ocultar barra superior en móviles para ahorrar espacio */
     }
     
-    main {
-        margin-top: 80px; /* Más arriba en móviles también */
+    /* Header ajustado para móvil - SIN ESPACIOS EXTRA */
+    .header {
+        height: 80px !important; /* Altura fija sin auto */
+        min-height: 80px;
+        padding: 0;
+        margin: 0;
     }
     
-    .nav-menu {
-        display: none;
+    /* Navbar container móvil con mejor distribución - SIN ESPACIOS EXTRA */
+    .navbar .container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        padding: 10px 20px !important;
+        position: relative !important;
+        gap: 15px !important;
+        flex-wrap: nowrap !important;
+        height: 80px !important; /* Altura exacta */
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    main {
+        margin-top: 80px !important; /* Reducido para eliminar espacio gris */
+        padding-top: 0 !important; /* Sin padding adicional */
+    }
+    
+    /* Ajustar hero en móvil - ELIMINAR ESPACIO GRIS */
+    .hero {
+        margin-top: 0 !important; /* Sin margen negativo */
+        min-height: calc(100vh - 80px); /* Ajustar altura desde el navbar */
+        justify-content: flex-start; /* Alinear contenido arriba */
+        padding-top: 20px; /* Espacio desde el navbar */
     }
 
+    /* Hero content más arriba en móvil */
+    .hero-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+    }
+    
+    /* Reorganizar navbar para móvil */
     .nav-container {
-        padding: 1rem;
+        padding: 1rem !important;
+        position: relative;
+        height: 80px;
+        max-width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
     }
-
+    
+    /* Mostrar iconos de redes sociales en móvil - CENTRADOS */
+    .mobile-social-nav {
+        display: flex !important;
+        gap: 1.5rem !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        order: 2 !important;
+    }
+    
+    .mobile-social-icon {
+        color: #d4af37 !important;
+        font-size: 1.4rem !important;
+        transition: all 0.3s ease !important;
+        text-decoration: none !important;
+        padding: 0.5rem !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 38px !important;
+        height: 38px !important;
+        background: rgba(212, 175, 55, 0.15) !important;
+        border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    }
+    
+    .mobile-social-icon:hover {
+        color: #000 !important;
+        background: linear-gradient(45deg, #d4af37, #f4d03f) !important;
+        transform: scale(1.15) !important;
+        border-color: #d4af37 !important;
+        box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3) !important;
+    }
+    
+    /* Reorganizar elementos del navbar */
+    .logo {
+        order: 1 !important;
+        flex-shrink: 0 !important;
+        position: relative !important;
+        z-index: 10 !important;
+    }
+    
+    /* Mostrar botón hamburguesa en móvil - BIEN POSICIONADO */
+    .mobile-menu-btn {
+        display: flex !important;
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        z-index: 1001 !important;
+        background: rgba(0, 0, 0, 0.1) !important;
+        border: 1px solid rgba(212, 175, 55, 0.3) !important;
+        order: 3 !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Ocultar right-section en móvil para simplificar */
     .right-section {
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
+        display: none !important;
     }
-
-    .social-navbar {
-        gap: 1rem;
+    
+    /* Cambiar nav-menu solo en móvil - DROPDOWN COMPACTO */
+    .nav-menu {
+        position: fixed !important;
+        top: 80px !important;
+        right: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: 0 !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        transition: max-height 0.3s ease, padding 0.3s ease !important;
+        z-index: 999 !important;
+        list-style: none !important;
+        overflow: hidden !important;
+        border-bottom: 2px solid #d4af37 !important;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3) !important;
     }
-
-    .social-nav-link {
-        font-size: 1.3rem;
+    
+    /* Mostrar menú cuando está activo - DROPDOWN MÁS ANGOSTO */
+    .nav-menu.active {
+        max-height: 180px !important; /* Reducido de 300px a 180px */
+        padding: 0.5rem 0 !important; /* Reducido padding */
+    }
+    
+    /* Enlaces del menú móvil - MÁS COMPACTOS */
+    .nav-menu .nav-link {
+        color: #fff !important;
+        font-size: 1.1rem !important; /* Reducido de 1.3rem */
+        font-weight: 600 !important;
+        text-align: center !important;
+        padding: 0.6rem 2rem !important; /* Reducido de 0.8rem */
+        transition: all 0.3s ease !important;
+        display: block !important;
+        text-decoration: none !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.1) !important;
+        width: 100% !important;
+        margin: 0 !important;
+        background: transparent !important;
+    }
+    
+    /* Efecto hover normal */
+    .nav-menu .nav-link:hover {
+        color: #d4af37 !important;
+        background: rgba(212, 175, 55, 0.1) !important;
+        transform: translateX(10px) !important;
+    }
+    
+    /* Página activa - EFECTO AMARILLO */
+    .nav-menu .nav-link.active {
+        color: #d4af37 !important;
+        background: rgba(212, 175, 55, 0.2) !important;
+        border-left: 3px solid #d4af37 !important;
+        font-weight: 700 !important;
+    }
+    
+    .nav-menu .nav-link::after {
+        display: none !important;
     }
 
     .header .nav-container .logo {
-        height: 45px !important;
+        height: 40px !important;
+        flex-shrink: 0;
     }
 
     .header .nav-container .logo img {
-        height: 80px !important;
-        max-width: 350px !important;
-        margin-top: 15px !important;
+        height: 60px !important;
+        max-width: 200px !important;
+        margin-top: 5px !important;
     }
 
     .hero h1 {
@@ -490,6 +710,22 @@ main {
         font-size: 1.1rem;
     }
 
+    /* Ajustes específicos para imagen del logo en móvil - MÁS ARRIBA */
+    .titulo-imagen {
+        max-width: 85% !important;
+        margin: -10px auto 0.3rem auto !important; /* Reducido espacio inferior de 0.8rem a 0.3rem */
+    }
+
+    .hero-texto {
+        margin-top: 0 !important;
+        gap: 0.8rem !important;
+    }
+
+    .hero-description {
+        font-size: 1rem !important;
+        max-width: 95% !important;
+    }
+
     .cta-buttons {
         flex-direction: column;
         align-items: center;
@@ -498,5 +734,4 @@ main {
     .section-title {
         font-size: 2.2rem;
     }
-    
 }
