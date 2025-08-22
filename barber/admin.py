@@ -37,7 +37,15 @@ class QuienesSomosAdmin(admin.ModelAdmin):
     list_display_links = ['titulo']
     fieldsets = (
         ('Información Principal', {
-            'fields': ('titulo', 'contenido', 'imagen')
+            'fields': ('titulo', 'contenido')
+        }),
+        ('Imagen Principal (Hero Section)', {
+            'fields': ('imagen_principal', 'posicion_imagen_principal'),
+            'description': 'La imagen principal aparece como fondo debajo del navbar. Usa "Posición" para controlar qué parte se muestra.'
+        }),
+        ('Contenido Multimedia', {
+            'fields': ('imagen', 'video_url', 'video_archivo'),
+            'description': 'Puedes usar una imagen, un video de URL (YouTube/Vimeo) o subir un archivo de video. Solo se mostrará uno a la vez, en orden de prioridad.'
         }),
         ('Historia', {
             'fields': ('historia_titulo', 'historia_contenido', 'historia_imagen')

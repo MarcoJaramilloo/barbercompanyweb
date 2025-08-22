@@ -5,20 +5,61 @@
 
 {% block content %}
 <!-- Hero Section -->
+{% if quienes_somos.imagen_principal %}
+<section class="hero hero-small" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ quienes_somos.imagen_principal.url }}') {{ quienes_somos.posicion_imagen_principal|default:"center" }}/cover no-repeat;">
+    <div class="hero-content fade-in-up">
+        <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
+        <p class="subtitle">Conoce nuestra historia y pasión por la barbería</p>
+    </div>
+</section>
+{% else %}
 <section class="hero hero-small">
     <div class="hero-content fade-in-up">
         <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
         <p class="subtitle">Conoce nuestra historia y pasión por la barbería</p>
     </div>
 </section>
+{% endif %}
 
 <!-- Main Content Section -->
 <section class="section section-light">
     <div class="container">
         <div class="grid-about">
             <div>
-                {% if quienes_somos.imagen %}
-                <img src="{{ quienes_somos.imagen.url }}" alt="Quiénes somos" class="image-about">
+                {% comment %}
+                Prioridad: 1) Video archivo, 2) Video URL, 3) Imagen
+                {% endcomment %}
+                {% if quienes_somos.video_archivo %}
+                    <video class="video-about" controls>
+                        <source src="{{ quienes_somos.video_archivo.url }}" type="video/mp4">
+                        Tu navegador no soporta el elemento video.
+                    </video>
+                {% elif quienes_somos.video_url %}
+                    {% comment %}
+                    Detectar tipo de URL y mostrar el embed correspondiente
+                    {% endcomment %}
+                    {% if "youtube.com" in quienes_somos.video_url or "youtu.be" in quienes_somos.video_url %}
+                        {% load static %}
+                        <div class="video-responsive">
+                            {% if "youtu.be" in quienes_somos.video_url %}
+                                <iframe src="https://www.youtube.com/embed/{{ quienes_somos.video_url|slice:"17:" }}" frameborder="0" allowfullscreen></iframe>
+                            {% else %}
+                                <iframe src="https://www.youtube.com/embed/{{ quienes_somos.video_url|slice:"32:" }}" frameborder="0" allowfullscreen></iframe>
+                            {% endif %}
+                        </div>
+                    {% elif "vimeo.com" in quienes_somos.video_url %}
+                        <div class="video-responsive">
+                            <iframe src="https://player.vimeo.com/video/{{ quienes_somos.video_url|slice:"18:" }}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    {% else %}
+                        <!-- Video directo -->
+                        <video class="video-about" controls>
+                            <source src="{{ quienes_somos.video_url }}" type="video/mp4">
+                            Tu navegador no soporta el elemento video.
+                        </video>
+                    {% endif %}
+                {% elif quienes_somos.imagen %}
+                    <img src="{{ quienes_somos.imagen.url }}" alt="Quiénes somos" class="image-about">
                 {% endif %}
             </div>
             <div>
