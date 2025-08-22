@@ -60,7 +60,43 @@ class ImagenGaleria(models.Model):
 class QuienesSomos(models.Model):
     titulo = models.CharField(max_length=200)
     contenido = models.TextField()
-    imagen = models.ImageField(upload_to="quienes_somos/", blank=True, null=True)
+    
+    # Imagen principal del hero section (debajo del navbar)
+    imagen_principal = models.ImageField(upload_to="quienes_somos/", blank=True, null=True, 
+                                       verbose_name="Imagen Principal (Hero)", 
+                                       help_text="Imagen que aparece debajo del navbar en la página de Quiénes Somos")
+    
+    # Posición de la imagen principal para controlar el zoom/recorte
+    POSICION_CHOICES = [
+        ('center', 'Centro'),
+        ('top', 'Arriba'),
+        ('bottom', 'Abajo'),
+        ('left', 'Izquierda'),
+        ('right', 'Derecha'),
+        ('top-left', 'Arriba Izquierda'),
+        ('top-right', 'Arriba Derecha'),
+        ('bottom-left', 'Abajo Izquierda'),
+        ('bottom-right', 'Abajo Derecha'),
+    ]
+    posicion_imagen_principal = models.CharField(
+        max_length=20, 
+        choices=POSICION_CHOICES, 
+        default='center',
+        verbose_name="Posición de la Imagen Principal",
+        help_text="Controla qué parte de la imagen se muestra cuando se recorta"
+    )
+    
+    # Contenido multimedia: imagen o video
+    imagen = models.ImageField(upload_to="quienes_somos/", blank=True, null=True, 
+                             verbose_name="Imagen del Contenido")
+    
+    video_url = models.URLField(blank=True, null=True,
+                               verbose_name="URL del Video",
+                               help_text="URL de YouTube, Vimeo o enlace directo al video (.mp4, .webm, etc)")
+    
+    video_archivo = models.FileField(upload_to="videos/quienes_somos/", blank=True, null=True,
+                                   verbose_name="Archivo de Video",
+                                   help_text="Sube un archivo de video directamente (.mp4, .webm, .mov)")
     
     # Historia de la barbería
     historia_titulo = models.CharField(max_length=200, default="Nuestra Historia")
@@ -73,9 +109,27 @@ class QuienesSomos(models.Model):
     valores = models.TextField(blank=True, null=True)
 
     def vista_previa(self):
+        html = ""
+        if self.imagen_principal:
+            html += '<p><strong>Imagen Principal (Hero):</strong></p>'
+            html += f'<img width="150" height="100" src="/media/{self.imagen_principal}" style="border-radius:5px;"><br>'
+            html += f'<small>Posición: {self.get_posicion_imagen_principal_display()}</small><br><br>'
+            
         if self.imagen:
-            return mark_safe('<img width="150" height="100" src="/media/%s">' % self.imagen)
-        return "Sin imagen"
+            html += '<p><strong>Imagen del Contenido:</strong></p>'
+            html += f'<img width="150" height="100" src="/media/{self.imagen}" style="border-radius:5px;"><br><br>'
+            
+        if self.video_url:
+            html += '<p><strong>Video URL:</strong></p>'
+            html += f'<p style="color:#007cba;">🎥 {self.video_url}</p><br>'
+            
+        if self.video_archivo:
+            html += '<p><strong>Video Archivo:</strong></p>'
+            html += f'<video width="150" height="100" controls style="border-radius:5px;"><source src="/media/{self.video_archivo}"></video><br><br>'
+            
+        if not html:
+            return "Sin contenido multimedia"
+        return mark_safe(html)
 
     def __str__(self):
         return self.titulo

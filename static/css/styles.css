@@ -575,6 +575,35 @@ main {
     animation: fadeInUp 0.8s ease-out;
 }
 
+/* Video Styles */
+.video-about {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-top: 0;
+    height: 0;
+    overflow: hidden;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
 /* Responsive */
 
 
@@ -886,6 +915,22 @@ main {
         box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         object-fit: cover;
         transition: box-shadow 0.3s;
+    }
+
+    /* Video responsivo en móvil */
+    .video-about {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .video-responsive {
+        max-width: 100%;
+        margin: 0 auto;
+        border-radius: 8px;
     }
 }
 
