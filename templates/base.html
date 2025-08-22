@@ -32,15 +32,21 @@
             
             <!-- Iconos de redes sociales en móvil (junto al logo) -->
             <div class="mobile-social-nav">
-                <a href="https://wa.me/1234567890" target="_blank" class="mobile-social-icon" title="WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" class="mobile-social-icon" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.facebook.com/" target="_blank" class="mobile-social-icon" title="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
+                {% if contacto.whatsapp %}
+                    <a href="https://wa.me/{{ contacto.whatsapp }}" target="_blank" class="mobile-social-icon" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                {% endif %}
+                {% if contacto.instagram %}
+                    <a href="{{ contacto.instagram }}" target="_blank" class="mobile-social-icon" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                {% endif %}
+                {% if contacto.facebook %}
+                    <a href="{{ contacto.facebook }}" target="_blank" class="mobile-social-icon" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                {% endif %}
             </div>
             
             <ul class="nav-menu">
@@ -60,13 +66,13 @@
             <div class="right-section">
                 <!-- Redes Sociales -->
                 <div class="social-navbar">
-                    <a href="https://www.instagram.com/" target="_blank" class="social-nav-link" title="Instagram">
+                    <a href="{{ contacto.instagram }}" target="_blank" class="social-nav-link" title="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.facebook.com/" target="_blank" class="social-nav-link" title="Facebook">
+                    <a href="{{ contacto.facebook }}" target="_blank" class="social-nav-link" title="Facebook">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://wa.me/1234567890" target="_blank" class="social-nav-link" title="WhatsApp">
+                    <a href="https://wa.me/{{ contacto.whatsapp }}" target="_blank" class="social-nav-link" title="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                 </div>
@@ -74,9 +80,9 @@
                 <div class="top-bar">
                     <div class="container">
                         <div class="address-navbar">
-                            <a href="https://maps.app.goo.gl/gN9jCVDeXVrdhRir7" target="_blank" class="address-link" title="Ver ubicación en Google Maps">
+                            <a href="{{ contacto.mapa_google_link }}" target="_blank" class="address-link" title="Ver ubicación en Google Maps">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>Calle Ejemplo #123, Centro, Ciudad</span>
+                                <span>{{ contacto.direccion }}</span>
                             </a>
                         </div>
                     </div>

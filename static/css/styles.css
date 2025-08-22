@@ -1,3 +1,78 @@
+
+/* About Section - lista simple y imágenes superpuestas */
+.about-list-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2.5rem;
+    margin: 2.5rem 0 1.5rem 0;
+}
+.about-description, .text-large {
+    font-size: 1.18rem;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    padding-left: 0rem;   /* antes estaba en 0.5rem */
+    padding-right: 0;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: -2rem; /* opcional: mueve todo más a la izquierda */
+}
+
+.about-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.15rem;
+    color: #888;
+    background: none;
+    border-radius: 0;
+    padding: 0.2rem 0;
+    box-shadow: none;
+    margin-bottom: 0.2rem;
+    font-weight: 400;
+}
+
+.about-list-icon {
+    color: #d4af37;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.about-images-chain {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    margin-top: 1.2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.about-img-chain {
+    position: absolute;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    border: 6px solid #fff;   /* borde blanco sólido */
+    border-radius: 0;         /* esquinas rectas y puntiagudas */
+    object-fit: cover;
+    width: 70%;
+    max-width: 450px;
+    aspect-ratio: 4/3;
+    transition: box-shadow 0.3s;
+}
+
+
+.about-img-chain:first-child {
+    top: 0;
+    left: 0;
+    z-index: 2;
+    transform: translate(-18%, 0);
+}
+.about-img-chain:last-child {
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    transform: translate(18%, 0);
+}
 /* ==========================================================================
    BARBERÍA - ESTILOS PRINCIPALES
    ========================================================================== */
@@ -501,6 +576,8 @@ main {
 }
 
 /* Responsive */
+
+
 @media (max-width: 768px) {
     .top-bar {
         display: none; /* Ocultar barra superior en móviles para ahorrar espacio */
@@ -734,4 +811,82 @@ main {
     .section-title {
         font-size: 2.2rem;
     }
+    @media (min-width: 450px) and (max-width: 768px) {
+    .titulo-imagen {
+        margin: -8rem auto 2rem auto !important; /* Menos margen negativo solo en este rango */
+    }
+    .hero-texto {
+        margin-top: -8rem !important; /* Menos margen negativo solo en este rango */
+        gap: 0.3rem !important;
+    }
+}
+@media (max-width: 768px) {
+    /* Contenedor principal de About */
+    .grid-about {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 0 1rem; /* margen interno general */
+        box-sizing: border-box;
+    }
+
+    /* Descripción del About */
+    .about-description,
+    .text-large {
+        font-size: 1rem;
+        margin: 0 0 1.2rem 0;   /* anulamos márgenes de escritorio */
+        text-align: justify;    /* texto justificado */
+        padding: 0 1rem;        /* padding interno para que no choque con bordes */
+        width: 100%;
+        max-width: 600px;       /* opcional para legibilidad */
+        box-sizing: border-box;
+    }
+
+    /* Lista de ítems del About */
+    .about-list-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin: 1.2rem 0 1rem 0;
+        align-items: flex-start;  /* alineación a la izquierda */
+        padding: 0 1rem;          /* margen interno */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .about-list-item {
+        gap: 0.5rem;
+        font-size: 1.05rem;
+    }
+
+    /* Cadena de imágenes */
+    .about-images-chain {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: static;
+        gap: 0.6rem;
+        padding: 0 0.8rem;
+        box-sizing: border-box;
+        min-height: auto;
+        margin-top: 1rem;
+    }
+
+    .about-img-chain {
+        width: 70%;
+        max-width: 280px;
+        aspect-ratio: 4/3;
+        position: static;
+        margin: 0 auto;
+        border: 6px solid #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        object-fit: cover;
+        transition: box-shadow 0.3s;
+    }
+}
+
 }

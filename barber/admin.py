@@ -18,10 +18,10 @@ class InicioAdmin(admin.ModelAdmin):
             'fields': ('subtitulo', 'contenido', 'img_prin', 'imagen_principal')
         }),
         ('Sección Sobre Nosotros', {
-            'fields': ('sobre_titulo', 'sobre_contenido', 'sobre_imagen')
+            'fields': ('sobre_titulo', 'sobre_contenido')
         }),
-        ('Estadísticas', {
-            'fields': ('anos_experiencia', 'clientes_satisfechos', 'cortes_realizados')
+        ('About Section', {
+            'fields': ('about_lista', 'about_imagen_1', 'about_imagen_2')
         }),
     )
 
@@ -65,6 +65,6 @@ class ContactoAdmin(admin.ModelAdmin):
             'fields': ('horario_lunes_viernes', 'horario_sabados', 'horario_domingos')
         }),
         ('Mapa', {
-            'fields': ('mapa_google',)
+            'fields': ('mapa_google','mapa_google_link')
         }),
     )

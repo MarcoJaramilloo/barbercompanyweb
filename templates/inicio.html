@@ -49,34 +49,25 @@
                     {{ inicio.sobre_contenido|default:"Somos una barbería con años de experiencia ofreciendo los mejores servicios de corte y cuidado personal. Nuestro equipo de profesionales está comprometido con la excelencia y la satisfacción de nuestros clientes." }}
                 </p>
                 
-                <!-- Statistics -->
-                {% if inicio.anos_experiencia or inicio.clientes_satisfechos or inicio.cortes_realizados %}
-                <div class="grid-stats">
-                    {% if inicio.anos_experiencia %}
-                    <div>
-                        <div class="stat-number">{{ inicio.anos_experiencia }}+</div>
-                        <div class="stat-label">Años de Experiencia</div>
-                    </div>
-                    {% endif %}
-                    {% if inicio.clientes_satisfechos %}
-                    <div>
-                        <div class="stat-number">{{ inicio.clientes_satisfechos }}+</div>
-                        <div class="stat-label">Clientes Satisfechos</div>
-                    </div>
-                    {% endif %}
-                    {% if inicio.cortes_realizados %}
-                    <div>
-                        <div class="stat-number">{{ inicio.cortes_realizados }}+</div>
-                        <div class="stat-label">Cortes Realizados</div>
-                    </div>
-                    {% endif %}
+                <!-- Nueva lista de cosas con palomita -->
+                {% if inicio.about_lista %}
+                <div class="about-list-grid">
+                    {% for item in inicio.about_lista.splitlines %}
+                        <div class="about-list-item">
+                            <i class="fas fa-check about-list-icon"></i>
+                            <span>{{ item }}</span>
+                        </div>
+                    {% endfor %}
                 </div>
                 {% endif %}
             </div>
             
-            <div>
-                {% if inicio.sobre_imagen %}
-                <img src="{{ inicio.sobre_imagen.url }}" alt="Sobre nosotros" class="image-rounded">
+            <div class="about-images-chain">
+                {% if inicio.about_imagen_1 %}
+                    <img src="{{ inicio.about_imagen_1.url }}" alt="About 1" class="about-img-chain">
+                {% endif %}
+                {% if inicio.about_imagen_2 %}
+                    <img src="{{ inicio.about_imagen_2.url }}" alt="About 2" class="about-img-chain">
                 {% endif %}
             </div>
         </div>
