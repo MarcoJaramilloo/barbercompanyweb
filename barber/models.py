@@ -11,12 +11,12 @@ class Inicio(models.Model):
     # Sección sobre nosotros en inicio
     sobre_titulo = models.CharField(max_length=200, default="Sobre Nosotros")
     sobre_contenido = models.TextField(blank=True, null=True)
-    sobre_imagen = models.ImageField(upload_to="inicio/", blank=True, null=True)
     
-    # Estadísticas
-    anos_experiencia = models.PositiveIntegerField(default=0)
-    clientes_satisfechos = models.PositiveIntegerField(default=0)
-    cortes_realizados = models.PositiveIntegerField(default=0)
+    # Lista de cosas para la sección about
+    about_lista = models.TextField("Lista de cosas (una por línea)", blank=True, null=True)
+    # Imágenes para la sección about
+    about_imagen_1 = models.ImageField(upload_to="inicio/", blank=True, null=True, verbose_name="Imagen About 1")
+    about_imagen_2 = models.ImageField(upload_to="inicio/", blank=True, null=True, verbose_name="Imagen About 2")
 
     def vista_previa(self):
         html = ""
@@ -97,7 +97,7 @@ class Contacto(models.Model):
     email = models.EmailField()
     whatsapp = models.CharField(max_length=20, blank=True, null=True)
     
-    # Redes sociales
+    # Redes socialess
     facebook = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)
     tiktok = models.URLField(blank=True, null=True)
@@ -110,6 +110,7 @@ class Contacto(models.Model):
     
     # Mapa
     mapa_google = models.TextField(help_text="Código iframe del mapa de Google", blank=True, null=True)
+    mapa_google_link = models.URLField("Enlace directo de Google Maps", blank=True, null=True, help_text="Pega aquí el enlace directo de la ubicación en Google Maps (no el iframe)")
 
     def vista_previa_logo(self):
         if self.logo_navbar:
