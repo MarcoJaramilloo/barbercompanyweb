@@ -1,26 +1,4 @@
-# Django
-*.log
-*.pot
-*.pyc
-__pycache__/
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Virtual environment
-venv/
-env/
-ENV/
+# Entorno virtual
 .venv/
 .env/
 
-# IDE
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Media files (if you don't want to commit uploaded files)
-# media/
