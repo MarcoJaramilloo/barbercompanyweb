@@ -59,7 +59,42 @@ class ImagenGaleria(models.Model):
 # Modelo para la página Quiénes Somos
 class QuienesSomos(models.Model):
     titulo = models.CharField(max_length=200)
+    subtitulo = models.CharField(max_length=300, default="Conoce nuestra historia y pasión por la barbería", 
+                               verbose_name="Subtítulo del Hero",
+                               help_text="Texto que aparece debajo del título principal en el hero section")
     contenido = models.TextField()
+    
+    # Contenido lateral elegante (al lado del video)
+    logo_superior = models.ImageField(
+        upload_to="quienes_somos/logos/", 
+        blank=True, 
+        null=True,
+        verbose_name="Logo Superior",
+        help_text="Imagen/logo que aparece en la parte superior del contenido elegante (reemplaza el texto 'SINCE 2021'). Tamaño recomendado: 320x320 píxeles para mejor calidad."
+    )
+    titulo_elegante = models.CharField(
+        max_length=200, 
+        default="Adam The Barber",
+        verbose_name="Título Principal",
+        help_text="Nombre o título principal en tipografía manuscrita"
+    )
+    frase_manuscrita = models.CharField(
+        max_length=300,
+        default="El arte se demuestra con tijeras en mano y haciendo uso de los mejores productos para quienes se acercan a nuestro salón.",
+        verbose_name="Descripción Artística",
+        help_text="Primera descripción en texto normal"
+    )
+    titulo_secundario = models.CharField(
+        max_length=100,
+        default="EXPERIENCIA Y PROFESIONALIDAD",
+        verbose_name="Título Secundario",
+        help_text="Título en mayúsculas bold"
+    )
+    descripcion_experiencia = models.TextField(
+        default="Transportándote a los 80' y 90', somos una barbería exclusiva que supera tus expectativas. Cortes de cabello impecables, tintes de primera calidad y arreglos de barba excepcionales son nuestra especialidad. ¡Experimenta la auténtica elegancia en cada visita!",
+        verbose_name="Descripción Detallada",
+        help_text="Descripción larga y detallada de la experiencia"
+    )
     
     # Imagen principal del hero section (debajo del navbar)
     imagen_principal = models.ImageField(upload_to="quienes_somos/", blank=True, null=True, 

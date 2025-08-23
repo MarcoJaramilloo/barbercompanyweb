@@ -37,7 +37,12 @@ class QuienesSomosAdmin(admin.ModelAdmin):
     list_display_links = ['titulo']
     fieldsets = (
         ('Información Principal', {
-            'fields': ('titulo', 'contenido')
+            'fields': ('titulo', 'subtitulo', 'contenido'),
+            'description': 'Información básica de la página. El subtítulo aparece debajo del título en el hero section.'
+        }),
+        ('Contenido Lateral Elegante', {
+            'fields': ('logo_superior', 'titulo_elegante', 'frase_manuscrita', 'titulo_secundario', 'descripcion_experiencia'),
+            'description': 'Contenido que aparece al lado del video con diseño similar al ejemplo "Adam The Barber". IMPORTANTE: El logo superior debe ser de 320x320 píxeles para mejor calidad y nitidez.'
         }),
         ('Imagen Principal (Hero Section)', {
             'fields': ('imagen_principal', 'posicion_imagen_principal'),
