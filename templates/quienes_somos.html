@@ -9,14 +9,14 @@
 <section class="hero hero-small" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ quienes_somos.imagen_principal.url }}') {{ quienes_somos.posicion_imagen_principal|default:"center" }}/cover no-repeat;">
     <div class="hero-content fade-in-up">
         <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
-        <p class="subtitle">Conoce nuestra historia y pasión por la barbería</p>
+        <p class="subtitle">{{ quienes_somos.subtitulo|default:"Conoce nuestra historia y pasión por la barbería" }}</p>
     </div>
 </section>
 {% else %}
 <section class="hero hero-small">
     <div class="hero-content fade-in-up">
         <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
-        <p class="subtitle">Conoce nuestra historia y pasión por la barbería</p>
+        <p class="subtitle">{{ quienes_somos.subtitulo|default:"Conoce nuestra historia y pasión por la barbería" }}</p>
     </div>
 </section>
 {% endif %}
@@ -62,37 +62,41 @@
                     <img src="{{ quienes_somos.imagen.url }}" alt="Quiénes somos" class="image-about">
                 {% endif %}
             </div>
-            <div>
-                <h2 class="title-gold">
-                    Nuestra Historia
+            <div class="contenido-elegante" style="background: #ffffff !important;">
+                <!-- Logo superior editable desde admin -->
+                {% if quienes_somos.logo_superior %}
+                <div class="logo-superior" style="text-align: center; margin-bottom: 8px; padding-left: 20px;">
+                    <img src="{{ quienes_somos.logo_superior.url }}" alt="Logo Superior" class="img-logo-superior" 
+                         style="max-width: 400x !important; max-height: 400px !important; display: block; margin: 0 auto; border-radius: 4px; box-shadow: 0 1px 4px rgba(212, 175, 55, 0.1);">
+                </div>
+                {% endif %}
+                
+                <!-- Título principal manuscrito -->
+                <h2 class="titulo-principal-manuscrito">
+                    {{ quienes_somos.titulo_elegante }}
                 </h2>
-                <p class="text-large">
-                    {{ quienes_somos.contenido|default:"Somos una barbería con tradición y experiencia en el arte del cuidado masculino. Nuestro compromiso es ofrecer un servicio de calidad excepcional, combinando técnicas tradicionales con las últimas tendencias en cortes y estilos." }}
+                
+                <!-- Símbolo decorativo (tijeras) -->
+                <div class="simbolo-decorativo">
+                    <i class="fas fa-cut"></i>
+                </div>
+                
+                <!-- Descripción artística -->
+                <p class="descripcion-artistica">
+                    {{ quienes_somos.frase_manuscrita }}
+                </p>
+                
+                <!-- Título secundario en mayúsculas -->
+                <h3 class="titulo-secundario-bold">
+                    {{ quienes_somos.titulo_secundario }}
+                </h3>
+                
+                <!-- Descripción detallada -->
+                <p class="descripcion-detallada">
+                    {{ quienes_somos.descripcion_experiencia }}
                 </p>
             </div>
         </div>
-
-        <!-- Historia Section -->
-        {% if quienes_somos.historia_titulo or quienes_somos.historia_contenido %}
-        <div class="history-section">
-            <h3 class="title-gold-center">
-                {{ quienes_somos.historia_titulo|default:"Nuestra Trayectoria" }}
-            </h3>
-            
-            <div class="grid-two-columns">
-                <div>
-                    <p class="text-large">
-                        {{ quienes_somos.historia_contenido|default:"Desde nuestros inicios, hemos mantenido un compromiso firme con la excelencia y la satisfacción de nuestros clientes. Cada corte es una obra de arte, cada cliente es único." }}
-                    </p>
-                </div>
-                <div>
-                    {% if quienes_somos.historia_imagen %}
-                    <img src="{{ quienes_somos.historia_imagen.url }}" alt="Historia" class="image-rounded-small">
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
 
         <!-- Mission, Vision, Values -->
         {% if quienes_somos.mision or quienes_somos.vision or quienes_somos.valores %}

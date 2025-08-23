@@ -1,0 +1,3 @@
+Esta carpeta es para las imágenes del logo superior.
+Guarda aquí la imagen "The Barber Company" que te pasé.
+La imagen debe guardarse como: barber_company_logo.png
