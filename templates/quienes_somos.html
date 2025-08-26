@@ -3,6 +3,40 @@
 
 {% block title %}{{ quienes_somos.titulo|default:"Quiénes Somos" }}{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+<style>
+/* Forzar el estilo del título secundario */
+h3.titulo-secundario-bold,
+.titulo-secundario-bold,
+h3[class*="titulo-secundario"] {
+    font-size: 2.8rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 2px !important;
+    color: #2c2c2c !important;
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
+    margin-bottom: 15px !important;
+    text-transform: uppercase !important;
+    line-height: 1.2 !important;
+    display: block !important;
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    h3.titulo-secundario-bold,
+    .titulo-secundario-bold,
+    h3[class*="titulo-secundario"] {
+        font-size: 2rem !important;
+        letter-spacing: 1.5px !important;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/video-autoplay.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 {% if quienes_somos.imagen_principal %}
@@ -30,7 +64,7 @@
                 Prioridad: 1) Video archivo, 2) Video URL, 3) Imagen
                 {% endcomment %}
                 {% if quienes_somos.video_archivo %}
-                    <video class="video-about" controls>
+                    <video class="video-about" controls id="about-video" data-autoplay-on-scroll>
                         <source src="{{ quienes_somos.video_archivo.url }}" type="video/mp4">
                         Tu navegador no soporta el elemento video.
                     </video>
@@ -53,7 +87,7 @@
                         </div>
                     {% else %}
                         <!-- Video directo -->
-                        <video class="video-about" controls>
+                        <video class="video-about" controls id="about-video" data-autoplay-on-scroll>
                             <source src="{{ quienes_somos.video_url }}" type="video/mp4">
                             Tu navegador no soporta el elemento video.
                         </video>
@@ -65,9 +99,8 @@
             <div class="contenido-elegante" style="background: #ffffff !important;">
                 <!-- Logo superior editable desde admin -->
                 {% if quienes_somos.logo_superior %}
-                <div class="logo-superior" style="text-align: center; margin-bottom: 8px; padding-left: 20px;">
-                    <img src="{{ quienes_somos.logo_superior.url }}" alt="Logo Superior" class="img-logo-superior" 
-                         style="max-width: 400x !important; max-height: 400px !important; display: block; margin: 0 auto; border-radius: 4px; box-shadow: 0 1px 4px rgba(212, 175, 55, 0.1);">
+                <div class="logo-superior">
+                    <img src="{{ quienes_somos.logo_superior.url }}" alt="Logo Superior" class="img-logo-superior">
                 </div>
                 {% endif %}
                 

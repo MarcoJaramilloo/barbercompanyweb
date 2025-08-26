@@ -1024,14 +1024,18 @@ main {
     font-style: italic;
 }
 
-.titulo-secundario-bold {
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #2c2c2c;
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 15px; /* Reducido de 20px a 15px */
-    text-transform: uppercase;
+h3.titulo-secundario-bold {
+    font-size: 10rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 2px !important;
+    color: red !important;
+    background: yellow !important;
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
+    margin-bottom: 15px !important;
+    text-transform: uppercase !important;
+    line-height: 1.2 !important;
+    border: 5px solid blue !important;
+    padding: 20px !important;
 }
 
 .descripcion-detallada {
@@ -1068,9 +1072,12 @@ main {
         font-size: 2.8rem;
     }
     
-    .titulo-secundario-bold {
-        font-size: 1.1rem;
-        letter-spacing: 1.5px;
+    h3.titulo-secundario-bold {
+        font-size: 2.2rem !important;
+        font-weight: 400 !important; /* Bebas Neue 400 para móviles */
+        letter-spacing: 1.5px !important;
+        font-family: 'Bebas Neue', 'Arial Black', sans-serif !important; /* Consistencia en móviles */
+        line-height: 1.2 !important;
     }
     
     .descripcion-detallada {
