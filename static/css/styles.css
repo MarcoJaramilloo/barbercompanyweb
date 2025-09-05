@@ -1024,18 +1024,18 @@ main {
     font-style: italic;
 }
 
-h3.titulo-secundario-bold {
-    font-size: 10rem !important;
-    font-weight: 400 !important;
-    letter-spacing: 2px !important;
-    color: red !important;
-    background: yellow !important;
-    font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
-    margin-bottom: 15px !important;
-    text-transform: uppercase !important;
-    line-height: 1.2 !important;
-    border: 5px solid blue !important;
-    padding: 20px !important;
+/* CSS específico para título secundario bold dentro del contenido elegante */
+.contenido-elegante h3.titulo-secundario-bold {
+    font-size: 2.8rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #2c2c2c;
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    display: block;
+    text-align: center;
 }
 
 .descripcion-detallada {
@@ -1072,12 +1072,9 @@ h3.titulo-secundario-bold {
         font-size: 2.8rem;
     }
     
-    h3.titulo-secundario-bold {
-        font-size: 2.2rem !important;
-        font-weight: 400 !important; /* Bebas Neue 400 para móviles */
-        letter-spacing: 1.5px !important;
-        font-family: 'Bebas Neue', 'Arial Black', sans-serif !important; /* Consistencia en móviles */
-        line-height: 1.2 !important;
+    .contenido-elegante h3.titulo-secundario-bold {
+        font-size: 2rem;
+        letter-spacing: 1.5px;
     }
     
     .descripcion-detallada {
