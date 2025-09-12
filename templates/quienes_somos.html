@@ -4,8 +4,8 @@
 {% block title %}{{ quienes_somos.titulo|default:"Quiénes Somos" }}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/pages.css' %}">
-<link rel="stylesheet" href="{% static 'css/quienes-somos.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages.css' %}?v=2025091101">
+<link rel="stylesheet" href="{% static 'css/quienes-somos.css' %}?v=2025091101">
 {% endblock %}
 
 {% block extra_js %}
@@ -15,7 +15,7 @@
 {% block content %}
 <!-- Hero Section -->
 {% if quienes_somos.imagen_principal %}
-<section class="hero hero-small" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ quienes_somos.imagen_principal.url }}') {{ quienes_somos.posicion_imagen_principal|default:"center" }}/cover no-repeat;">
+<section class="hero hero-small hero-with-image" style="--hero-img: url('{{ quienes_somos.imagen_principal.url }}'); --hero-pos: {{ quienes_somos.posicion_imagen_principal|default:'center top'|safe }};">
     <div class="hero-content fade-in-up">
         <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
         <p class="subtitle">{{ quienes_somos.subtitulo|default:"Conoce nuestra historia y pasión por la barbería" }}</p>
@@ -71,7 +71,7 @@
                     <img src="{{ quienes_somos.imagen.url }}" alt="Quiénes somos" class="image-about">
                 {% endif %}
             </div>
-            <div class="contenido-elegante" style="background: #ffffff !important;">
+            <div class="contenido-elegante">
                 <!-- Logo superior editable desde admin -->
                 {% if quienes_somos.logo_superior %}
                 <div class="logo-superior">
@@ -145,14 +145,14 @@
 
 <!-- Call to Action -->
 <section class="section section-dark">
-    <div class="container" style="text-align: center;">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; color: #d4af37;">
+    <div class="container cta-section">
+        <h2 class="cta-title">
             ¿Quieres conocernos mejor?
         </h2>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #ccc;">
+        <p class="cta-description">
             Ven a visitarnos y descubre por qué somos la barbería de confianza de tantos clientes
         </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <div class="cta-buttons">
             <a href="{% url 'contacto' %}" class="btn-primary">
                 <i class="fas fa-map-marker-alt"></i> Cómo Llegar
             </a>

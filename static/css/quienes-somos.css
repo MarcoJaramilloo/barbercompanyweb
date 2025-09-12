@@ -1,12 +1,74 @@
-/* CSS específico para la página de Quiénes Somos */
+/* ====================================================================
+   CSS ESPECÍFICO PARA LA PÁGINA DE QUIÉNES SOMOS
+   ==================================================================== */
 
-/* Forzar el estilo del título secundario SOLO dentro del bloque elegante */
+/* Importar fuente Bebas Neue, Archivo Black y Ubuntu */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+
+/* ====================================================================
+   HERO SECTION
+   ==================================================================== */
+
+/* Hero base - sobrescribir pages.css */
+section.hero.hero-small {
+    height: 35vh !important;
+    min-height: 200px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center top !important;
+}
+
+/* Hero con imagen de fondo dinámica */
+.hero-with-image {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--hero-img) var(--hero-pos, center top) / cover no-repeat !important;
+}
+
+/* Título principal del hero - SOBRE NOSOTROS */
+.hero h1 {
+    font-family: 'Archivo Black', 'Arial Black', sans-serif !important;
+    font-size: 4rem !important;
+    font-weight: 900 !important;
+    color: #E6C68A !important; /* Color dorado claro como en la imagen */
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.1 !important;
+}
+
+/* Subtítulo del hero */
+.hero .subtitle {
+    font-family: 'Ubuntu', 'Helvetica', sans-serif !important;
+    font-size: 1.3rem !important;
+    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.4 !important;
+}
+
+/* ====================================================================
+   CONTENIDO ELEGANTE
+   ==================================================================== */
+
+.contenido-elegante {
+    background: #ffffff !important;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+/* Título secundario con Bebas Neue */
 .contenido-elegante h3.titulo-secundario-bold {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
     font-size: 2.8rem !important;
     font-weight: 400 !important;
     letter-spacing: 2px !important;
     color: #2c2c2c !important;
-    font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
     margin-bottom: 15px !important;
     text-transform: uppercase !important;
     line-height: 1.2 !important;
@@ -14,24 +76,140 @@
     text-align: center !important;
 }
 
-/* Texto justificado para la descripción detallada */
+/* Texto justificado */
 .contenido-elegante .descripcion-detallada {
     text-align: justify !important;
     text-justify: inter-word;
+    line-height: 1.7;
+    color: #444;
 }
 
-/* Responsive - móviles */
+/* ====================================================================
+   OTROS ELEMENTOS
+   ==================================================================== */
+
+.logo-superior {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.img-logo-superior {
+    max-height: 80px;
+    width: auto;
+}
+
+.titulo-principal-manuscrito {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-style: italic;
+    color: #2c2c2c;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.simbolo-decorativo {
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #d4af37;
+    font-size: 1.5rem;
+}
+
+.descripcion-artistica {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* ====================================================================
+   CALL TO ACTION
+   ==================================================================== */
+
+.cta-section {
+    text-align: center;
+}
+
+.cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #d4af37;
+}
+
+.cta-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ccc;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ====================================================================
+   RESPONSIVE
+   ==================================================================== */
+
 @media (max-width: 768px) {
+    section.hero.hero-small {
+        height: 30vh !important;
+        min-height: 170px !important;
+    }
+
+    /* Título hero responsive */
+    .hero h1 {
+        font-size: 2.8rem !important;
+        letter-spacing: 2px !important;
+    }
+
+    .hero .subtitle {
+        font-size: 1.1rem !important;
+        font-weight: 400 !important;
+    }
+
     .contenido-elegante h3.titulo-secundario-bold {
         font-size: 2rem !important;
         letter-spacing: 1.5px !important;
     }
     
-    .contenido-elegante .descripcion-detallada {
-        text-align: justify !important;
-        text-justify: inter-word;
+    .titulo-principal-manuscrito {
+        font-size: 2rem;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
-/* Asegurar que Bebas Neue esté cargada */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap');
+@media (max-width: 480px) {
+    section.hero.hero-small {
+        height: 25vh !important;
+        min-height: 150px !important;
+    }
+
+    /* Título hero muy pequeño */
+    .hero h1 {
+        font-size: 2.2rem !important;
+        letter-spacing: 1.5px !important;
+    }
+
+    .hero .subtitle {
+        font-size: 1rem !important;
+        font-weight: 400 !important;
+    }
+
+    .contenido-elegante h3.titulo-secundario-bold {
+        font-size: 1.8rem !important;
+    }
+}
