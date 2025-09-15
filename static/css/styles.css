@@ -875,12 +875,11 @@ main {
 
     /* Lista de ítems del About */
     .about-list-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem 1rem;  /* espacio filas/columnas */
         margin: 1.2rem 0 1rem 0;
-        align-items: flex-start;  /* alineación a la izquierda */
-        padding: 0 1rem;          /* margen interno */
+        padding: 0 1rem;
         width: 100%;
         box-sizing: border-box;
     }
@@ -889,23 +888,29 @@ main {
         gap: 0.5rem;
         font-size: 1.05rem;
     }
-
-    /* Cadena de imágenes */
+    
     .about-images-chain {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: static;
-        gap: 0.6rem;
-        padding: 0 0.8rem;
-        box-sizing: border-box;
-        min-height: auto;
-        margin-top: 1rem;
+        display: block;       /* quitamos flex */
+        position: static;     /* quitamos posicionamiento */
+        margin: 1rem auto 0;  /* que se ubique justo debajo */
+        padding: 0; 
+        min-height: auto;     /* eliminamos altura forzada */
     }
 
     .about-img-chain {
+        display: block;
+        margin: 0 auto;       /* centramos imagen */
+        width: 80%;           /* un poco más grande en móvil */
+        max-width: 320px;
+        border-radius: 10px;
+    }
+
+    .about-img-chain:last-child {
+        display: none;        /* oculta segunda imagen */
+    }
+
+
+    /*.about-img-chain {
         width: 70%;
         max-width: 280px;
         aspect-ratio: 4/3;
@@ -916,7 +921,7 @@ main {
         box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         object-fit: cover;
         transition: box-shadow 0.3s;
-    }
+    }*/
 
     /* Video responsivo en móvil */
     .video-about {
