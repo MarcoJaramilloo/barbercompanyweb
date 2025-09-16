@@ -36,20 +36,48 @@
 </section>
 
 
+<!--About Section-->
 
-
-<!-- About Section -->
-{% if inicio.sobre_titulo or inicio.sobre_contenido %}
 <section class="section section-light" id="sobre-nosotros">
     <div class="container">
         <h2 class="section-title">{{ inicio.sobre_titulo|default:"Sobre Nosotros" }}</h2>
+
+        <!-- Imagen móvil solo visible en <=768px -->
+<div class="about-img-mobile">
+    <div class="css-slider">
+        <!-- Radio buttons ocultos para controlar el slider -->
+        <input type="radio" name="slider" id="slide1" checked>
+        <input type="radio" name="slider" id="slide2">
+        
+        <!-- Contenedor de las imágenes -->
+        <div class="slider-wrapper">
+            <div class="slides">
+                {% if inicio.about_imagen_1 %}
+                    <div class="slide">
+                        <img src="{{ inicio.about_imagen_1.url }}" alt="About 1" class="about-img-chain">
+                    </div>
+                {% endif %}
+                {% if inicio.about_imagen_2 %}
+                    <div class="slide">
+                        <img src="{{ inicio.about_imagen_2.url }}" alt="About 2" class="about-img-chain">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Indicadores/puntos -->
+        <div class="slider-nav">
+            <label for="slide1" class="nav-dot"></label>
+            <label for="slide2" class="nav-dot"></label>
+        </div>
+    </div>
+</div>
+
         <div class="grid-about">
             <div>
                 <p class="text-large">
-                    {{ inicio.sobre_contenido|default:"Somos una barbería con años de experiencia ofreciendo los mejores servicios de corte y cuidado personal. Nuestro equipo de profesionales está comprometido con la excelencia y la satisfacción de nuestros clientes." }}
+                    {{ inicio.sobre_contenido|default:"Somos una barbería con años de experiencia..." }}
                 </p>
-                
-                <!-- Nueva lista de cosas con palomita -->
                 {% if inicio.about_lista %}
                 <div class="about-list-grid">
                     {% for item in inicio.about_lista.splitlines %}
@@ -62,6 +90,7 @@
                 {% endif %}
             </div>
             
+            <!-- Imágenes de escritorio solo visibles >768px -->
             <div class="about-images-chain">
                 {% if inicio.about_imagen_1 %}
                     <img src="{{ inicio.about_imagen_1.url }}" alt="About 1" class="about-img-chain">
@@ -73,7 +102,8 @@
         </div>
     </div>
 </section>
-{% endif %}
+
+
 
 <!-- Services Section -->
 <section class="section section-dark" id="servicios">
