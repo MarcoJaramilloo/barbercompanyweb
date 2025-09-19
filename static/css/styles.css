@@ -17,7 +17,7 @@
     font-size: 1.18rem;
     margin-bottom: 1.5rem;
     text-align: justify;
-    padding-left: 0rem; /* agregamos padding izquierdo */
+    padding-left: 1rem; /* agregamos padding izquierdo */
     padding-right: 1rem; /* agregamos padding derecho */
     max-width: 600px;
     width: 100%;
@@ -987,6 +987,9 @@ main {
     }
 }
 
+}
+
+
 /* Diseño Elegante Estilo "Adam The Barber" */
 .contenido-elegante {
     position: relative;
@@ -1135,4 +1138,4 @@ main {
     }
 }
 
-}
+
