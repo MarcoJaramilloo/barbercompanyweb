@@ -2,45 +2,34 @@
 // BARBERÍA - FUNCIONALIDADES JAVASCRIPT
 // ==========================================================================
 
-// SLIDER SOBRE NOSOTROS MÓVIL
-/*let slideIndex = 1;
-
-function showSlides(n) {
-    let slides = document.getElementsByClassName("slider-img");
-    let dots = document.getElementsByClassName("dot");
-    
-    if (!slides.length) return;
-    
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    
-    // Ocultar todas las imágenes
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("active");
-    }
-    
-    // Quitar clase activa de todos los puntos
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].classList.remove("active");
-    }
-    
-    // Mostrar imagen activa y punto activo
-    if (slides[slideIndex-1]) slides[slideIndex-1].classList.add("active");
-    if (dots[slideIndex-1]) dots[slideIndex-1].classList.add("active");
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar slider
-    showSlides(slideIndex);
     
-    // Agregar event listeners a los puntos
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', function() {
-            slideIndex = index + 1;
-            showSlides(slideIndex);
+    // ==========================================================================
+    // NAVEGACIÓN SUAVE
+    // ==========================================================================
+    
+    // Scroll suave para enlaces internos
+    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+    
+    smoothScrollLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
         });
-    });*/
+    });
+    
     // ==========================================================================
     // HEADER DINÁMICO - EFECTO SCROLL
     // ==========================================================================
@@ -64,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             header.style.backdropFilter = 'blur(15px)';
             console.log('Navbar transparente aplicado'); // Debug
         }
-    }//
+    }
 
     // Event listener directo para scroll
     window.addEventListener('scroll', handleScroll);
@@ -237,72 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         animateOnScroll();
     }, 16)); // ~60fps
     
-    // ==========================================================================
-    // MENÚ HAMBURGUESA MÓVIL
-    // ==========================================================================
-    
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navMenuMobile = document.querySelector('.nav-menu');
-    
-    console.log('🍔 Botón hamburguesa:', mobileMenuBtn);
-    console.log('📱 Menú navegación:', navMenuMobile);
-    
-    if (mobileMenuBtn && navMenuMobile) {
-        console.log('✅ Elementos del menú móvil encontrados');
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            console.log('🍔 Click en botón hamburguesa'); // Debug
-            
-            // Toggle clase active en el botón hamburguesa
-            mobileMenuBtn.classList.toggle('active');
-            
-            // Toggle clase active en el menú
-            navMenuMobile.classList.toggle('active');
-            
-            console.log('📱 Clases del menú:', navMenuMobile.classList);
-            
-            // Prevenir scroll cuando el menú está abierto
-            if (navMenuMobile.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-                console.log('🔒 Menú abierto desde la derecha'); // Debug
-            } else {
-                document.body.style.overflow = '';
-                console.log('🔓 Menú cerrado'); // Debug
-            }
-        });
-
-        // Cerrar menú al hacer click en un enlace de navegación (no en redes sociales)
-        const navLinks = navMenuMobile.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenuBtn.classList.remove('active');
-                navMenuMobile.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Cerrar menú al hacer click fuera de él
-        document.addEventListener('click', function(event) {
-            const isClickInsideMenu = navMenuMobile.contains(event.target);
-            const isClickOnButton = mobileMenuBtn.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnButton && navMenuMobile.classList.contains('active')) {
-                mobileMenuBtn.classList.remove('active');
-                navMenuMobile.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // Cerrar menú al presionar escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && navMenuMobile.classList.contains('active')) {
-                mobileMenuBtn.classList.remove('active');
-                navMenuMobile.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    }
-
+});
 
 // ==========================================================================
 // CSS PARA EFECTOS JAVASCRIPT
@@ -374,3 +298,70 @@ const dynamicStyles = `
 const styleSheet = document.createElement('style');
 styleSheet.textContent = dynamicStyles;
 document.head.appendChild(styleSheet);
+
+    // ==========================================================================
+    // MENÚ HAMBURGUESA MÓVIL
+    // ==========================================================================
+    
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    console.log('🍔 Botón hamburguesa:', mobileMenuBtn);
+    console.log('📱 Menú navegación:', navMenu);
+    
+    if (mobileMenuBtn && navMenu) {
+        console.log('✅ Elementos del menú móvil encontrados');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            console.log('🍔 Click en botón hamburguesa'); // Debug
+            
+            // Toggle clase active en el botón hamburguesa
+            mobileMenuBtn.classList.toggle('active');
+            
+            // Toggle clase active en el menú
+            navMenu.classList.toggle('active');
+            
+            console.log('📱 Clases del menú:', navMenu.classList);
+            
+            // Prevenir scroll cuando el menú está abierto
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+                console.log('🔒 Menú abierto desde la derecha'); // Debug
+            } else {
+                document.body.style.overflow = '';
+                console.log('🔓 Menú cerrado'); // Debug
+            }
+        });
+
+        // Cerrar menú al hacer click en un enlace de navegación (no en redes sociales)
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Cerrar menú al hacer click fuera de él
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = navMenu.contains(event.target);
+            const isClickOnButton = mobileMenuBtn.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnButton && navMenu.classList.contains('active')) {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Cerrar menú al presionar escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+

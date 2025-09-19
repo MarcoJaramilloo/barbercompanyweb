@@ -4,6 +4,9 @@
 {% block title %}{{ inicio.titulo_principal|default:"Barbería - Inicio" }}{% endblock %}
 
 {% block content %}
+<body>
+    
+
 <!-- Hero Section -->
 <section class="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ inicio.imagen_principal.url }}') center/cover no-repeat;">
     <div class="hero-content fade-in-up">
@@ -190,3 +193,6 @@
     </div>
 </section>
 {% endblock %}
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/slider-mobile.js' %}"></script>
+</body>
