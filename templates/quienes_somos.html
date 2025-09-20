@@ -39,7 +39,7 @@
                 (((Prioridad: 1) Video archivo, 2) Video URL, 3) Imagen
                 {% endcomment %}
                 {% if quienes_somos.video_archivo %}
-                    <video class="video-about" controls id="about-video" data-autoplay-on-scroll>
+                    <video class="video-about" controls id="about-video" data-autoplay-on-scroll volume="0.0" muted>
                         <source src="{{ quienes_somos.video_archivo.url }}" type="video/mp4">
                         Tu navegador no soporta el elemento video.
                     </video>
@@ -62,7 +62,7 @@
                         </div>
                     {% else %}
                         <!-- Video directo -->
-                        <video class="video-about" controls id="about-video" data-autoplay-on-scroll>
+                        <video class="video-about" controls id="about-video" data-autoplay-on-scroll volume="0.0" muted>
                             <source src="{{ quienes_somos.video_url }}" type="video/mp4">
                             Tu navegador no soporta el elemento video.
                         </video>
@@ -103,6 +103,58 @@
                 <p class="descripcion-detallada">
                     {{ quienes_somos.descripcion_experiencia }}
                 </p>
+            </div>
+        </div>
+
+        <!-- Galería de Instalaciones y Ambiente -->
+        <div class="seccion-entretenimiento">
+            <h2 class="titulo-entretenimiento">Echa un ojo</h2>
+            
+            <div class="grid-entretenimiento">
+                <!-- Nuestras Instalaciones -->
+                <div class="categoria-entretenimiento">
+                    <h3 class="categoria-titulo">
+                        <i class="fas fa-cut"></i>
+                        NUESTRAS INSTALACIONES
+                    </h3>
+                    <div class="imagenes-categoria">
+                        {% comment %}
+                        Aquí irán las imágenes de las instalaciones y sillas de barbería
+                        {% endcomment %}
+                        {% if quienes_somos.imagen_instalacion_1 %}
+                            <img src="{{ quienes_somos.imagen_instalacion_1.url }}" alt="Instalaciones 1" class="imagen-ambiente">
+                        {% endif %}
+                        {% if quienes_somos.imagen_instalacion_2 %}
+                            <img src="{{ quienes_somos.imagen_instalacion_2.url }}" alt="Instalaciones 2" class="imagen-ambiente">
+                        {% endif %}
+                        {% if quienes_somos.imagen_instalacion_3 %}
+                            <img src="{{ quienes_somos.imagen_instalacion_3.url }}" alt="Instalaciones 3" class="imagen-ambiente">
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Sala Retro -->
+                <div class="categoria-entretenimiento">
+                    <h3 class="categoria-titulo">
+                        <i class="fas fa-chess-board"></i>
+                        SALA RETRO
+                    </h3>
+                    <p class="subtitulo-categoria">Ambientada en los 90'</p>
+                    <div class="imagenes-categoria">
+                        {% comment %}
+                        Aquí irán las imágenes de la sala retro con billar
+                        {% endcomment %}
+                        {% if quienes_somos.imagen_sala_retro_1 %}
+                            <img src="{{ quienes_somos.imagen_sala_retro_1.url }}" alt="Sala Retro 1" class="imagen-ambiente">
+                        {% endif %}
+                        {% if quienes_somos.imagen_sala_retro_2 %}
+                            <img src="{{ quienes_somos.imagen_sala_retro_2.url }}" alt="Sala Retro 2" class="imagen-ambiente">
+                        {% endif %}
+                        {% if quienes_somos.imagen_sala_retro_3 %}
+                            <img src="{{ quienes_somos.imagen_sala_retro_3.url }}" alt="Sala Retro 3" class="imagen-ambiente">
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
 

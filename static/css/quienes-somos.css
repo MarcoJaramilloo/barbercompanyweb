@@ -153,6 +153,111 @@ section.hero.hero-small {
 }
 
 /* ====================================================================
+   SECCIÓN DE ENTRETENIMIENTO Y AMBIENTE
+   ==================================================================== */
+
+.seccion-entretenimiento {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.titulo-entretenimiento {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.8rem;
+    color: #d4af37;
+    margin-bottom: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.subtitulo-entretenimiento {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-entretenimiento {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+.categoria-entretenimiento {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.categoria-entretenimiento:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.categoria-titulo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.categoria-titulo i {
+    color: #d4af37;
+    font-size: 1.3rem;
+}
+
+.subtitulo-categoria {
+    font-family: 'Ubuntu', sans-serif;
+    color: #d4af37;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.imagenes-categoria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.imagen-ambiente {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.imagen-ambiente:hover {
+    transform: scale(1.05);
+}
+
+.descripcion-categoria {
+    font-family: 'Ubuntu', sans-serif;
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ====================================================================
    RESPONSIVE
    ==================================================================== */
 
@@ -397,6 +502,34 @@ section.hero.hero-small {
         flex-direction: column;
         align-items: center;
     }
+
+    /* ===== ENTRETENIMIENTO RESPONSIVE MÓVIL ===== */
+    .titulo-entretenimiento {
+        font-size: 2.2rem !important;
+        letter-spacing: 1px !important;
+    }
+
+    .grid-entretenimiento {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    .categoria-entretenimiento {
+        padding: 1.5rem !important;
+    }
+
+    .categoria-titulo {
+        font-size: 1.3rem !important;
+    }
+
+    .imagenes-categoria {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.8rem !important;
+    }
+
+    .imagen-ambiente {
+        height: 100px !important;
+    }
 }
 
 /* ===== RESPONSIVE TABLET (450px - 768px) ===== */
@@ -415,6 +548,15 @@ section.hero.hero-small {
         font-family: 'Ubuntu', sans-serif;
         font-weight: 400;
         letter-spacing: 0.3px;
+    }
+
+    /* ===== ENTRETENIMIENTO RESPONSIVE TABLET ===== */
+    .titulo-entretenimiento {
+        font-size: 2.5rem !important;
+    }
+
+    .grid-entretenimiento {
+        gap: 3rem !important;
     }
 }
 

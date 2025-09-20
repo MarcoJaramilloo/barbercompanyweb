@@ -11,14 +11,22 @@ document.addEventListener('DOMContentLoaded', function() {
     videos.forEach(video => {
         let hasPlayed = false;
         
+        // ===== CONFIGURAR VOLUMEN INICIAL =====
+        // Establecer volumen a 0% (0.0) - silencioso cuando se carga el video
+        video.volume = 0.0;
+        console.log('Volumen del video establecido a 0% (silencioso)');
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && !hasPlayed) {
                     // El video está visible en la pantalla
                     try {
+                        // Asegurar volumen antes de reproducir
+                        video.volume = 0.0;
+                        
                         video.play().then(() => {
                             hasPlayed = true;
-                            console.log('Video reproducido automáticamente');
+                            console.log('Video reproducido automáticamente en modo silencioso (0%)');
                             
                             // Agregar clase para indicar que se está reproduciendo
                             video.classList.add('auto-playing');
@@ -79,8 +87,11 @@ function showPlayIndicator(video) {
         
         // Manejar clic en el indicador
         indicator.addEventListener('click', () => {
+            // Asegurar volumen antes de reproducir manualmente
+            video.volume = 0.0;
             video.play();
             indicator.remove();
+            console.log('Video reproducido manualmente en modo silencioso (0%)');
         });
         
         // Ocultar indicador después de 5 segundos

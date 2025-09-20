@@ -142,6 +142,51 @@ class QuienesSomos(models.Model):
     mision = models.TextField(blank=True, null=True)
     vision = models.TextField(blank=True, null=True)
     valores = models.TextField(blank=True, null=True)
+    
+    # Galería de Instalaciones y Ambiente
+    imagen_instalacion_1 = models.ImageField(
+        upload_to="quienes_somos/instalaciones/", 
+        blank=True, 
+        null=True,
+        verbose_name="Instalaciones - Imagen 1",
+        help_text="Primera imagen de las instalaciones y sillas de barbería"
+    )
+    imagen_instalacion_2 = models.ImageField(
+        upload_to="quienes_somos/instalaciones/", 
+        blank=True, 
+        null=True,
+        verbose_name="Instalaciones - Imagen 2",
+        help_text="Segunda imagen de las instalaciones y sillas de barbería"
+    )
+    imagen_instalacion_3 = models.ImageField(
+        upload_to="quienes_somos/instalaciones/", 
+        blank=True, 
+        null=True,
+        verbose_name="Instalaciones - Imagen 3",
+        help_text="Tercera imagen de las instalaciones y sillas de barbería"
+    )
+    
+    imagen_sala_retro_1 = models.ImageField(
+        upload_to="quienes_somos/sala_retro/", 
+        blank=True, 
+        null=True,
+        verbose_name="Sala Retro - Imagen 1",
+        help_text="Primera imagen de la sala retro ambientada en los 90' (billar y entretenimiento)"
+    )
+    imagen_sala_retro_2 = models.ImageField(
+        upload_to="quienes_somos/sala_retro/", 
+        blank=True, 
+        null=True,
+        verbose_name="Sala Retro - Imagen 2",
+        help_text="Segunda imagen de la sala retro ambientada en los 90' (billar y entretenimiento)"
+    )
+    imagen_sala_retro_3 = models.ImageField(
+        upload_to="quienes_somos/sala_retro/", 
+        blank=True, 
+        null=True,
+        verbose_name="Sala Retro - Imagen 3",
+        help_text="Tercera imagen de la sala retro ambientada en los 90' (billar y entretenimiento)"
+    )
 
     def vista_previa(self):
         html = ""
