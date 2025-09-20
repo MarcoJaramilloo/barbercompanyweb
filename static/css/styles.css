@@ -1,4 +1,10 @@
 /* ======================
+   IMPORTACIONES DE FUENTES GOOGLE
+====================== */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+
+/* ======================
    About Section - lista y imágenes superpuestas
 ====================== */
 #sobre-nosotros {
@@ -410,19 +416,26 @@ main {
 }
 
 .hero .subtitle {
+    font-family: 'Archivo Black', sans-serif;
     font-size: 1.3rem;
     color: #d4af37;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 0rem;
     text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .hero-description {
+    font-family: 'Ubuntu', sans-serif;
     font-size: 1.1rem;
+    font-weight: 400;
     line-height: 1.8;
     max-width: 90%;
     margin-bottom: 0rem;
     text-align: center;
+    opacity: 0.95;
+    letter-spacing: 0.3px;
 }
 
 /* Botones */
@@ -837,7 +850,11 @@ main {
     }
 
     .hero .subtitle {
+        font-family: 'Archivo Black', sans-serif;
         font-size: 1.1rem;
+        font-weight: 400;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
     }
 
     /* Ajustes específicos para imagen del logo en móvil - MÁS ARRIBA */
@@ -852,8 +869,11 @@ main {
     }
 
     .hero-description {
+        font-family: 'Ubuntu', sans-serif;
         font-size: 1rem !important;
+        font-weight: 400;
         max-width: 95% !important;
+        letter-spacing: 0.2px;
     }
 
     .cta-buttons {
@@ -871,6 +891,17 @@ main {
     .hero-texto {
         margin-top: -8rem !important; /* Menos margen negativo solo en este rango */
         gap: 0.3rem !important;
+    }
+    .hero .subtitle {
+        font-family: 'Archivo Black', sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.9px;
+        text-transform: uppercase;
+    }
+    .hero-description {
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.3px;
     }
 }
 @media (max-width: 768px) {
