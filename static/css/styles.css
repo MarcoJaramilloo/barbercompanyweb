@@ -8,7 +8,7 @@
    About Section - lista y imágenes superpuestas
 ====================== */
 #sobre-nosotros {
-    padding-top: 5rem; /* ajusta este valor según necesites */
+    padding-top: 4rem; /* Reducido de 5rem a 2.5rem para menos espacio */
      margin-bottom: -1rem;
 }
 /* Lista de ítems */
@@ -16,24 +16,30 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem 2.5rem;
-    margin: 2.5rem 0 1.5rem 0.5rem;
+    margin: 2.5rem 0 1.5rem 0.5rem; /* Más hacia la derecha en desktop */
+    max-width: 600px;
+    width: 100%;
 }
 
 .about-description, .text-large {
     font-size: 1.18rem;
     margin-bottom: 1.5rem;
     text-align: justify;
-    padding-left: 1rem; /* agregamos padding izquierdo */
-    padding-right: 1rem; /* agregamos padding derecho */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     max-width: 600px;
     width: 100%;
     box-sizing: border-box;
-    margin-left: -0.3rem; /* removemos el margin negativo que causaba problemas */
+    margin: 0 auto 1.5rem auto; /* Centrar horizontalmente */
 }
 
 /* Agregamos estilos responsivos para el contenedor del texto */
 .grid-about > div:first-child {
-    padding: 0 0rem; /* padding horizontal para el contenedor del texto */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -101,6 +107,268 @@
 /* Imagen móvil (solo una) */
 .about-img-mobile {
     display: none; /* oculto en escritorio */
+}
+
+/* CSS Slider para "Sobre Nosotros" */
+.css-slider {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.css-slider input[type="radio"] {
+    display: none;
+}
+
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px;
+}
+
+.slides {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    width: 50%;
+    height: 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-nav {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.nav-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-dot:hover {
+    background-color: #d4af37;
+}
+
+/* Control del slider */
+#slide1:checked ~ .slider-wrapper .slides {
+    transform: translateX(0%);
+}
+
+#slide2:checked ~ .slider-wrapper .slides {
+    transform: translateX(-50%);
+}
+
+/* Estados activos de los puntos */
+#slide1:checked ~ .slider-nav label[for="slide1"],
+#slide2:checked ~ .slider-nav label[for="slide2"] {
+    background-color: #d4af37;
+}
+
+/* ==========================================================================
+   DIVISOR ELEGANTE CON TIJERAS
+   ========================================================================== */
+
+.section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem 0;
+    padding: 2rem 0;
+    background: transparent;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    max-width: 200px;
+}
+
+.divider-icon {
+    margin: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #d4af37;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.divider-icon::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #d4af37, #f4d03f);
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.divider-icon:hover {
+    transform: rotate(180deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.divider-icon:hover::before {
+    opacity: 0.3;
+}
+
+.divider-icon i {
+    color: #d4af37;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.divider-icon:hover i {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+}
+
+/* Divider elegante con tijeras y puntos */
+.divider-elegant {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin: 4.6rem 0 0 0; /* un poquito más desde las imágenes */
+    font-size: 1rem; /* tamaño base reducido */
+    padding-bottom: 1.2rem; /* espacio adicional debajo del divisor */
+}
+.divider-dot {
+    color: #d4af37; /* mismo color que los títulos */
+        font-size: 0.9rem; /* puntos más pequeños */
+        margin: 0 0.06em;
+        opacity: 0.95;
+}
+.divider-scissors {
+    color: #d4af37; /* mismo color que los títulos */
+        font-size: 1.2rem; /* tijera más pequeña */
+        margin: 0 0.45em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(-90deg); /* gira la tijera apuntando hacia arriba */
+        transition: transform 0.2s ease, color 0.2s ease;
+}
+.divider-scissors i {
+        display: inline-block; /* permite que el icono rote con su contenedor */
+}
+
+/* Collage Gallery Styles */
+
+/* Masonry-like collage using CSS columns so items flow like bricks */
+.collage-grid {
+    column-count: 4;
+    column-gap: 1rem;
+}
+
+.collage-item {
+    display: inline-block; /* important for column layout */
+    width: 100%;
+    margin: 0 0 1rem; /* space between items vertically */
+    break-inside: avoid;
+    background: transparent;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.25s ease;
+}
+
+.collage-item:hover {
+    transform: translateY(-6px);
+}
+
+.collage-media {
+    width: 100%;
+    height: auto; /* respetar altura original y relación de aspecto */
+    display: block;
+    object-fit: cover; /* preferimos cover to fill width while preserving ratio */
+    border-radius: 0; /* esquinas puntiagudas */
+}
+
+.collage-caption {
+    padding: 0.6rem 0.35rem;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.collage-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+}
+
+
+@media (max-width: 1100px) {
+    .collage-grid { column-count: 3; }
+}
+
+@media (max-width: 768px) {
+    .collage-grid { column-count: 2; }
+}
+
+@media (max-width: 480px) {
+    .collage-grid { column-count: 1; }
+}
+
+@media (max-width: 600px) {
+    .divider-elegant {
+        font-size: 0.95rem;
+        gap: 0.18rem;
+        margin-top: 2.6rem; /* un poquito más en móvil */
+        padding-bottom: 0.6rem;
+    }
+    .divider-scissors {
+        font-size: 1rem;
+        margin: 0 0.3em;
+    }
+    .divider-dot {
+        font-size: 0.8rem;
+    }
+}
+
+/* Responsive para el divisor */
+@media (max-width: 768px) {
+    .section-divider {
+        margin: 3rem 0;
+        padding: 1.5rem 0;
+    }
+    
+    .divider-line {
+        max-width: 100px;
+    }
+    
+    .divider-icon {
+        width: 50px;
+        height: 50px;
+        margin: 0 1.5rem;
+    }
+    
+    .divider-icon i {
+        font-size: 1.2rem;
+    }
 }
 /* ==========================================================================
    BARBERÍA - ESTILOS PRINCIPALES
@@ -506,6 +774,219 @@ main {
     color: #d4af37;
 }
 
+/* Títulos con fuente Archivo Black (más moderna) */
+.section-title.archivo-black {
+    font-family: 'Archivo Black', sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+}
+
+/* Título "Sobre Nosotros" con fuente Kaushan Script */
+.section-title.kaushan-script-regular {
+    font-family: "Kaushan Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3.5rem; /* Aumentado de 3rem a 3.5rem */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+/* Líneas decorativas con marcas de corte a los lados del título */
+.section-title.kaushan-script-regular::before,
+.section-title.kaushan-script-regular::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, 
+        #d4af37 0%, 
+        #d4af37 15%, 
+        transparent 15%, 
+        transparent 25%, 
+        #d4af37 25%, 
+        #d4af37 35%, 
+        transparent 35%, 
+        transparent 45%, 
+        #d4af37 45%, 
+        #d4af37 55%, 
+        transparent 55%, 
+        transparent 65%, 
+        #d4af37 65%, 
+        #d4af37 75%, 
+        transparent 75%, 
+        transparent 85%, 
+        #d4af37 85%, 
+        #d4af37 100%);
+    max-width: 150px;
+    position: relative;
+}
+
+/* Tijeras decorativas */
+.section-title.kaushan-script-regular::before {
+    background-image: 
+        linear-gradient(to right, 
+            #d4af37 0%, 
+            #d4af37 15%, 
+            transparent 15%, 
+            transparent 25%, 
+            #d4af37 25%, 
+            #d4af37 35%, 
+            transparent 35%, 
+            transparent 45%, 
+            #d4af37 45%, 
+            #d4af37 55%, 
+            transparent 55%, 
+            transparent 65%, 
+            #d4af37 65%, 
+            #d4af37 75%, 
+            transparent 75%, 
+            transparent 85%, 
+            #d4af37 85%, 
+            #d4af37 100%);
+}
+
+.section-title.kaushan-script-regular::after {
+    background-image: 
+        linear-gradient(to left, 
+            #d4af37 0%, 
+            #d4af37 15%, 
+            transparent 15%, 
+            transparent 25%, 
+            #d4af37 25%, 
+            #d4af37 35%, 
+            transparent 35%, 
+            transparent 45%, 
+            #d4af37 45%, 
+            #d4af37 55%, 
+            transparent 55%, 
+            transparent 65%, 
+            #d4af37 65%, 
+            #d4af37 75%, 
+            transparent 75%, 
+            transparent 85%, 
+            #d4af37 85%, 
+            #d4af37 100%);
+}
+
+/* Iconos de tijeras usando Font Awesome */
+.section-title.kaushan-script-regular .scissors-left,
+.section-title.kaushan-script-regular .scissors-right {
+    position: absolute;
+    font-size: 1.8rem;
+    color: #d4af37;
+    opacity: 0.8;
+    animation: subtle-pulse 3s ease-in-out infinite;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.section-title.kaushan-script-regular .scissors-left {
+    left: -2.5rem; /* Más alejada de las líneas */
+    transform: translateY(-50%) rotate(-15deg);
+}
+
+.section-title.kaushan-script-regular .scissors-right {
+    right: -2.5rem; /* Más alejada de las líneas */
+    transform: translateY(-50%) rotate(15deg) scaleX(-1);
+    animation: subtle-pulse-right 3s ease-in-out infinite;
+}
+
+/* Animación sutil para las tijeras */
+@keyframes subtle-pulse {
+    0%, 100% { 
+        opacity: 0.8; 
+        transform: translateY(-50%) rotate(-15deg) scale(1); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: translateY(-50%) rotate(-15deg) scale(1.1); 
+    }
+}
+
+/* Animación para tijera derecha (invertida) */
+@keyframes subtle-pulse-right {
+    0%, 100% { 
+        opacity: 0.8; 
+        transform: translateY(-50%) rotate(15deg) scaleX(-1) scale(1); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: translateY(-50%) rotate(15deg) scaleX(-1) scale(1.1); 
+    }
+}
+
+/* ===== MEDIA QUERIES RESPONSIVAS PARA TIJERAS ===== */
+
+/* Pantallas medianas-grandes (1200px - 1400px) */
+@media (max-width: 1400px) {
+    .section-title.kaushan-script-regular .scissors-left,
+    .section-title.kaushan-script-regular .scissors-right {
+        font-size: 1.6rem; /* Tijeras un poco más pequeñas */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-left {
+        left: -2rem; /* Tijera izquierda más cerca */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-right {
+        right: -2rem; /* Tijera derecha más cerca */
+    }
+}
+
+/* Pantallas medianas (1000px - 1200px) */
+@media (max-width: 1200px) {
+    .section-title.kaushan-script-regular .scissors-left,
+    .section-title.kaushan-script-regular .scissors-right {
+        font-size: 1.4rem; /* Tijeras más pequeñas */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-left {
+        left: -1.5rem; /* Más cerca */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-right {
+        right: -1.5rem; /* Más cerca */
+    }
+}
+
+/* Tablets grandes (900px - 1000px) */
+@media (max-width: 1000px) {
+    .section-title.kaushan-script-regular .scissors-left,
+    .section-title.kaushan-script-regular .scissors-right {
+        font-size: 1.2rem; /* Tijeras pequeñas */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-left {
+        left: -1rem; /* Muy cerca del texto */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-right {
+        right: -1rem; /* Muy cerca del texto */
+    }
+}
+
+/* Tablets medianos (769px - 900px) - Última oportunidad antes del móvil */
+@media (max-width: 900px) and (min-width: 769px) {
+    .section-title.kaushan-script-regular .scissors-left,
+    .section-title.kaushan-script-regular .scissors-right {
+        font-size: 1rem; /* Tijeras muy pequeñas */
+        opacity: 0.6; /* Menos visibles para evitar saturación */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-left {
+        left: -0.8rem; /* Pegadas al texto */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-right {
+        right: -0.8rem; /* Pegadas al texto */
+    }
+}
+
 .section-dark {
     background: #222;
     color: #fff;
@@ -884,6 +1365,41 @@ main {
     .section-title {
         font-size: 2.2rem;
     }
+    
+    /* Ajuste específico para el título Kaushan Script en móvil */
+    .section-title.kaushan-script-regular {
+        font-size: 2.8rem; /* Un poco más grande que el título normal en móvil */
+        gap: 1rem; /* Menos espacio entre elementos en móvil */
+        flex-direction: row; /* Mantener en fila para usar tijeras laterales */
+        margin: 0 2rem; /* Padding lateral para evitar que las tijeras se peguen a los bordes */
+    }
+    
+    /* Ajustar líneas decorativas en móvil - Ocultamos completamente */
+    
+    /* Ajustar tijeras en móvil - Usar las mismas tijeras animadas */
+    .section-title.kaushan-script-regular .scissors-left,
+    .section-title.kaushan-script-regular .scissors-right {
+        font-size: 1.2rem; /* Tijeras más pequeñas en móvil */
+        display: block; /* Mostrar las tijeras en móvil */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-left {
+        left: -1.2rem; /* Posición ajustada para móvil */
+        transform: translateY(-50%) rotate(-10deg); /* Menos rotación */
+        opacity: 0.7; /* Ligeramente menos visible */
+    }
+    
+    .section-title.kaushan-script-regular .scissors-right {
+        right: -1.2rem; /* Posición ajustada para móvil */
+        transform: translateY(-50%) rotate(10deg) scaleX(-1); /* Menos rotación */
+        opacity: 0.7; /* Ligeramente menos visible */
+    }
+    
+    /* Eliminar las líneas decorativas ::before y ::after en móvil */
+    .section-title.kaushan-script-regular::before,
+    .section-title.kaushan-script-regular::after {
+        display: none; /* Ocultar líneas decorativas */
+    }
     @media (min-width: 450px) and (max-width: 768px) {
     .titulo-imagen {
         margin: -8rem auto 2rem auto !important; /* Menos margen negativo solo en este rango */
@@ -912,81 +1428,40 @@ main {
         margin: 1rem auto 1.5rem auto;
     }
 
-    .css-slider {
-        position: relative;
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-        overflow: hidden;
-        border-radius: 10px;
-        /*box-shadow: 0 4px 12px rgba(0,0,0,0.12);*/
-    }
-
-    .css-slider input[type="radio"] {
-        display: none;
-    }
-
-    .slider-wrapper {
-        position: relative;
-        width: 100%;
-        height: 240px;
-    }
-
-    .slides {
-        display: flex;
-        width: 200%;
-        height: 100%;
-        transition: transform 0.5s ease-in-out;
-    }
-
-    .slide {
-        width: 50%;
-        height: 100%;
-    }
-
-    .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .slider-nav {
-        text-align: center;
-        margin-top: 15px;
-    }
-
-    .nav-dot {
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        background-color: #bbb;
-        border-radius: 50%;
-        margin: 0 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .nav-dot:hover {
-        background-color: #d4af37;
-    }
-
-    /* Control del slider */
-    #slide1:checked ~ .slider-wrapper .slides {
-        transform: translateX(0%);
-    }
-
-    #slide2:checked ~ .slider-wrapper .slides {
-        transform: translateX(-50%);
-    }
-
-    /* Estados activos de los puntos */
-    #slide1:checked ~ .slider-nav label[for="slide1"],
-    #slide2:checked ~ .slider-nav label[for="slide2"] {
-        background-color: #d4af37;
-    }
-
     .about-images-chain {
         display: none;
+    }
+    
+    /* Mejoras para centrado en móvil */
+    .about-description, .text-large {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin: 0 auto 1.5rem auto;
+        text-align: justify; /* Texto justificado en móvil */
+    }
+    
+    .about-list-grid {
+        grid-template-columns: 1fr 1fr; /* Dos columnas en móvil */
+        gap: 0.3rem 1.5rem; /* Menos espacio entre filas y columnas */
+        margin: 1.5rem auto 1rem auto; /* Centrado */
+        padding: 0 1rem;
+        max-width: 100%;
+    }
+    
+    .about-list-item {
+        font-size: 0.95rem; /* Letras más pequeñas en móvil */
+        gap: 0.5rem;
+        padding: 0.1rem 0; /* Menos espaciado vertical */
+        margin-bottom: 0.1rem;
+    }
+    
+    .about-list-icon {
+        font-size: 1rem; /* Iconos un poco más pequeños */
+    }
+    
+    /* Ajuste del padding-top de la sección sobre-nosotros en móvil */
+    #sobre-nosotros {
+        padding-top: 2rem; /* Menos espacio en móvil */
     }
     /*.about-img-chain {
         width: 70%;
@@ -1166,6 +1641,153 @@ main {
     .descripcion-detallada {
         font-size: 0.9rem;
         text-align: left;
+    }
+}
+
+/* ======================
+   SLIDER DE SERVICIOS CON OVERLAY
+====================== */
+
+/* Reset completo para eliminar cualquier borde */
+.service-card *, 
+.service-card *::before, 
+.service-card *::after {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Reset específico para imágenes de servicio */
+.service-img,
+.service-slide img,
+.service-image-slider img {
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Contenedor del slider de imágenes de servicios */
+.service-image-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0; /* Esquinas rectas */
+    border: none; /* Sin borde */
+    background: transparent; /* Sin fondo */
+    cursor: pointer;
+    /* Sin sombra para look más limpio */
+}
+
+/* Slides individuales */
+.service-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.service-slide.active {
+    opacity: 1;
+}
+
+/* Imágenes dentro del slider - ahora ocupan todo el espacio */
+.service-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0; /* Esquinas rectas */
+    border: none; /* Sin borde */
+    box-shadow: none; /* Sin sombra */
+    outline: none; /* Sin outline */
+    transition: transform 0.3s ease;
+}
+
+/* Overlay amarillo que aparece al hacer hover */
+.service-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 215, 0, 0.95); /* Amarillo sólido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0; /* Esquinas rectas */
+    z-index: 5;
+}
+
+.service-overlay-title {
+    color: #333;
+    font-size: 1.4em;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 20px;
+    text-shadow: none;
+    line-height: 1.2;
+}
+
+/* Mostrar overlay al hacer hover/touch */
+.service-image-slider:hover .service-overlay,
+.service-image-slider:active .service-overlay {
+    opacity: 1;
+}
+
+/* Efecto sutil en la imagen al hacer hover */
+.service-image-slider:hover .service-img {
+    transform: scale(1.05);
+}
+
+/* Indicadores (dots) del slider */
+.service-slider-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.service-slider-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.service-slider-dots .dot.active,
+.service-slider-dots .dot:hover {
+    background-color: #d4af37;
+}
+
+/* Ajuste para el ícono por defecto */
+.service-card .icon-gold {
+    margin-bottom: 1.5rem;
+}
+
+/* Media queries para el slider de servicios */
+@media (max-width: 768px) {
+    .service-overlay-title {
+        font-size: 1.2em;
+        padding: 0 15px;
+    }
+    
+    .service-slider-dots .dot {
+        width: 6px;
+        height: 6px;
     }
 }
 
