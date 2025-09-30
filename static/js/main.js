@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==========================================================================
     
     // Preparar estructura para menú móvil hamburguesa
-    const mobileMenuButton = document.querySelector('.mobile-menu-toggle');
+    const mobileMenuButton = document.querySelector('.mobile-menu-btn');
     const navMenu = document.querySelector('.nav-menu');
     
     if (mobileMenuButton && navMenu) {
