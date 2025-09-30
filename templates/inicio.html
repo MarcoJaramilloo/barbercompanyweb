@@ -43,7 +43,11 @@
 
 <section class="section section-light" id="sobre-nosotros">
     <div class="container">
-        <h2 class="section-title">{{ inicio.sobre_titulo|default:"Sobre Nosotros" }}</h2>
+        <h2 class="section-title kaushan-script-regular">
+            <i class="fas fa-cut scissors-left"></i>
+            {{ inicio.sobre_titulo|default:"Sobre Nosotros" }}
+            <i class="fas fa-cut scissors-right"></i>
+        </h2>
 
         <!-- Imagen móvil solo visible en <=768px -->
 <div class="about-img-mobile">
@@ -111,15 +115,51 @@
 <!-- Services Section -->
 <section class="section section-dark" id="servicios">
     <div class="container">
-        <h2 class="section-title">Servicios que Superan tus Expectativas</h2>
-        <div class="grid-services">
-            <!-- Service cards will be generated from database -->
+        <h2 class="section-title archivo-black">Servicios que Superan tus Expectativas</h2>
+        <div class="services-grid">
+            {% for servicio in servicios %}
+            {% if servicio.activo %}
+                <!-- Slider de imágenes del servicio (sin contenedor card) -->
+                {% if servicio.imagenes.all %}
+                <div class="service-image-slider" data-service-id="{{ servicio.id }}">
+                    {% for imagen in servicio.imagenes.all %}
+                    <div class="service-slide {% if forloop.first %}active{% endif %}">
+                        <img src="{{ imagen.imagen.url }}" alt="{{ imagen.descripcion|default:servicio.titulo }}" class="service-img">
+                    </div>
+                    {% endfor %}
+                    
+                    <!-- Overlay con título que aparece al hacer hover -->
+                    <div class="service-overlay">
+                        <div class="service-overlay-title">{{ servicio.titulo }}</div>
+                    </div>
+                    
+                    <!-- Indicadores solo si hay más de una imagen -->
+                    {% if servicio.imagenes.count > 1 %}
+                    <div class="service-slider-dots">
+                        {% for imagen in servicio.imagenes.all %}
+                        <span class="dot {% if forloop.first %}active{% endif %}" onclick="currentServiceSlide('{{ forloop.counter }}', '{{ servicio.id }}')"></span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% else %}
+                <!-- Ícono por defecto si no hay imágenes (mantenemos un contenedor mínimo) -->
+                <div class="service-icon-fallback">
+                    <div class="icon-gold">
+                        <i class="{{ servicio.icono }}"></i>
+                    </div>
+                    <h3 class="subtitle-gold">{{ servicio.titulo }}</h3>
+                </div>
+                {% endif %}
+            {% endif %}
+            {% empty %}
+            <!-- Servicios por defecto si no hay servicios en la DB -->
             <div class="service-card">
                 <div class="icon-gold">
                     <i class="fas fa-cut"></i>
                 </div>
                 <h3 class="subtitle-gold">Corte Clásico y Moderno</h3>
-                <p class="text-light">Cortes tradicionales y tendencias actuales adaptados a tu estilo personal.</p>
+
             </div>
             
             <div class="service-card">
@@ -127,7 +167,7 @@
                     <i class="fas fa-user-tie"></i>
                 </div>
                 <h3 class="subtitle-gold">Arreglo de Barba Premium</h3>
-                <p class="text-light">Cuidado profesional de barba con productos de alta calidad.</p>
+                
             </div>
             
             <div class="service-card">
@@ -135,8 +175,18 @@
                     <i class="fas fa-spa"></i>
                 </div>
                 <h3 class="subtitle-gold">Tratamientos Especiales</h3>
-                <p class="text-light">Decoloraciones, tintes y tratamientos capilares profesionales.</p>
             </div>
+            {% endfor %}
+        </div>
+        <!-- Divider elegante con tijeras y puntos -->
+        <div class="divider-elegant">
+            <span class="divider-dot">●</span>
+            <span class="divider-dot">●</span>
+            <span class="divider-dot">●</span>
+            <span class="divider-scissors"><i class="fas fa-cut"></i></span>
+            <span class="divider-dot">●</span>
+            <span class="divider-dot">●</span>
+            <span class="divider-dot">●</span>
         </div>
     </div>
 </section>
@@ -144,23 +194,47 @@
 <!-- Gallery Section -->
 <section class="section section-light" id="galeria">
     <div class="container">
-        <h2 class="section-title">Algunos de Nuestros Trabajos</h2>
+        <h2 class="section-title archivo-black">Algunos de Nuestros Trabajos</h2>
         <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 3rem;">
             Consulta nuestra galería y déjate inspirar por nuestros trabajos
         </p>
         
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-            {% for foto in galeria %}
-            <div style="position: relative; overflow: hidden; border-radius: 15px; aspect-ratio: 1; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <img src="{{ foto.imagen.url }}" alt="{{ foto.descripcion }}" style="width: 100%; height: 100%; object-fit: cover;">
-                {% if foto.descripcion %}
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); color: white; padding: 1rem; text-align: center;">
-                    <p style="margin: 0; font-weight: 500;">{{ foto.descripcion }}</p>
-                </div>
+        <div class="collage-grid">
+            {% for item in galeria %}
+            <div class="collage-item">
+                {% if item.video or item.video_url %}
+                    {% if item.video %}
+                        <video class="collage-media gallery-video" muted playsinline preload="metadata" controls>
+                            <source src="{{ item.video.url }}" type="video/mp4">
+                            Tu navegador no soporta el elemento video.
+                        </video>
+                    {% else %}
+                        {# Soporte para URL (YouTube/Vimeo) - si es YouTube/Vimeo, dejamos data-src y creamos iframe que se inicializa desde JS al hacerse visible #}
+                        {% if 'youtube.com' in item.video_url or 'youtu.be' in item.video_url %}
+                            <div class="video-embed">
+                                <iframe class="collage-media gallery-iframe" data-src="{{ item.video_url }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% elif 'vimeo.com' in item.video_url %}
+                            <div class="video-embed">
+                                <iframe class="collage-media gallery-iframe" data-src="{{ item.video_url }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% else %}
+                            <video class="collage-media gallery-video" muted playsinline preload="metadata" controls>
+                                <source src="{{ item.video_url }}" type="video/mp4">
+                                Tu navegador no soporta el elemento video.
+                            </video>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <img src="{{ item.imagen.url }}" alt="{{ item.descripcion }}" class="collage-media" loading="lazy">
+                {% endif %}
+
+                {% if item.descripcion %}
+                <div class="collage-caption">{{ item.descripcion }}</div>
                 {% endif %}
             </div>
             {% empty %}
-            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+            <div class="collage-empty">
                 <i class="fas fa-images" style="font-size: 3rem; margin-bottom: 1rem; color: #d4af37;"></i>
                 <p>Próximamente agregaremos nuestra galería de trabajos.</p>
             </div>
@@ -172,7 +246,7 @@
 <!-- Call to Action Section -->
 <section class="section section-dark">
     <div class="container" style="text-align: center;">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; color: #d4af37;">
+        <h2 style="font-family: 'Archivo Black', sans-serif; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; font-size: 2.5rem; margin-bottom: 1rem; color: #d4af37;">
             ¿Listo para tu nuevo look?
         </h2>
         <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #ccc;">

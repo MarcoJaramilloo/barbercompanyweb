@@ -40,13 +40,19 @@ class Inicio(models.Model):
 # Modelo para las imágenes de la galería
 class ImagenGaleria(models.Model):
     inicio = models.ForeignKey(Inicio, related_name="galeria", on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to="galeria/")
+    imagen = models.ImageField(upload_to="galeria/", blank=True, null=True)
+    # Nuevo: permitir video subido o URL de video
+    video = models.FileField(upload_to="galeria/videos/", blank=True, null=True, verbose_name="Archivo de video")
+    video_url = models.URLField(blank=True, null=True, verbose_name="URL de video", help_text="YouTube, Vimeo o enlace directo (.mp4)")
     descripcion = models.CharField(max_length=255, blank=True, null=True)
 
     def vista_previa(self):
+        # Mostrar preview de video si existe, sino imagen
+        if self.video:
+            return mark_safe('<video width="120" height="80" controls><source src="/media/%s"></video>' % self.video)
         if self.imagen:
             return mark_safe('<img width="100" height="100" src="/media/%s">' % self.imagen)
-        return "Sin imagen"
+        return "Sin contenido"
 
     def __str__(self):
         return f"Imagen de {self.inicio.subtitulo or 'Inicio'}"
@@ -54,6 +60,66 @@ class ImagenGaleria(models.Model):
     class Meta:
         verbose_name = "Imagen de Galería"
         verbose_name_plural = "2. Galería de Imágenes"
+
+
+# Modelo para los servicios
+class Servicio(models.Model):
+    titulo = models.CharField(max_length=200, verbose_name="Título del Servicio")
+    icono = models.CharField(
+        max_length=50, 
+        default="fas fa-cut",
+        verbose_name="Icono FontAwesome",
+        help_text="Clase del icono de FontAwesome (ej: fas fa-cut, fas fa-user-tie, fas fa-spa)"
+    )
+    orden = models.PositiveIntegerField(default=1, verbose_name="Orden de aparición")
+    activo = models.BooleanField(default=True, verbose_name="Mostrar servicio")
+
+    def vista_previa_imagenes(self):
+        imagenes = self.imagenes.all()[:3]  # Mostrar solo las primeras 3
+        if imagenes:
+            html = '<div style="display: flex; gap: 5px;">'
+            for img in imagenes:
+                html += f'<img width="80" height="60" src="/media/{img.imagen}" style="border-radius:3px; object-fit:cover;">'
+            if self.imagenes.count() > 3:
+                html += f'<span style="margin-left:5px; color:#666;">+{self.imagenes.count()-3} más</span>'
+            html += '</div>'
+            return mark_safe(html)
+        return "Sin imágenes"
+
+    def __str__(self):
+        return self.titulo
+    
+    class Meta:
+        verbose_name = "Servicio"
+        verbose_name_plural = "3. Servicios"
+        ordering = ['orden']
+
+
+# Modelo para las imágenes de los servicios
+class ImagenServicio(models.Model):
+    servicio = models.ForeignKey(Servicio, related_name="imagenes", on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="servicios/", verbose_name="Imagen del Servicio")
+    descripcion = models.CharField(
+        max_length=255, 
+        blank=True, 
+        null=True, 
+        verbose_name="Descripción de la imagen",
+        help_text="Descripción opcional de la imagen (alt text)"
+    )
+    orden = models.PositiveIntegerField(default=1, verbose_name="Orden en el slider")
+
+    def vista_previa(self):
+        if self.imagen:
+            return mark_safe(f'<img width="100" height="75" src="/media/{self.imagen}" style="border-radius:5px; object-fit:cover;">')
+        return "Sin imagen"
+
+    def __str__(self):
+        return f"{self.servicio.titulo} - Imagen {self.orden}"
+    
+    class Meta:
+        verbose_name = "Imagen de Servicio"
+        verbose_name_plural = "3.1. Imágenes de Servicios"
+        ordering = ['servicio', 'orden']
 
 
 # Modelo para la página Quiénes Somos
@@ -216,7 +282,7 @@ class QuienesSomos(models.Model):
     
     class Meta:
         verbose_name = "Quiénes Somos"
-        verbose_name_plural = "3. Quiénes Somos"
+        verbose_name_plural = "4. Quiénes Somos"
 
 
 # Modelo para información de contacto
@@ -256,4 +322,4 @@ class Contacto(models.Model):
     
     class Meta:
         verbose_name = "Información de Contacto"
-        verbose_name_plural = "4. Información de Contacto"
+        verbose_name_plural = "5. Información de Contacto"

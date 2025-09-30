@@ -99,6 +99,88 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'scale(1)';
         });
     });
+
+    // Autoplay / pause for gallery videos and lazy-init for iframe embeds
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const el = entry.target;
+
+                // If it's an iframe placeholder, set src when it becomes visible
+                if (el.classList && el.classList.contains('gallery-iframe')) {
+                    if (entry.isIntersecting) {
+                        if (!el.src || el.src === '') {
+                            const src = el.dataset.src;
+                            // If Youtube/Vimeo share URL, try to normalize to autoplay=1&mute=1 later in HTML by JS
+                            // For now, append autoplay parameters for common hosts
+                            if (src && (src.includes('youtube.com') || src.includes('youtu.be'))) {
+                                // Normalize YouTube watch URL -> embed URL
+                                let embed = src;
+                                // convert youtu.be short links
+                                try {
+                                    if (embed.includes('youtu.be/')) {
+                                        const id = embed.split('youtu.be/')[1].split(/[?&]/)[0];
+                                        embed = 'https://www.youtube.com/embed/' + id;
+                                    } else if (embed.includes('watch?v=')) {
+                                        const id = embed.split('watch?v=')[1].split(/[?&]/)[0];
+                                        embed = 'https://www.youtube.com/embed/' + id;
+                                    }
+                                } catch (e) {
+                                    // keep original if parsing fails
+                                }
+                                el.src = embed + (embed.includes('?') ? '&' : '?') + 'autoplay=1&mute=1&rel=0&modestbranding=1';
+                            } else if (src && src.includes('vimeo.com')) {
+                                // Convert typical vimeo url to player url
+                                let embed = src;
+                                try {
+                                    const m = embed.match(/vimeo.com\/(\d+)/);
+                                    if (m && m[1]) embed = 'https://player.vimeo.com/video/' + m[1];
+                                } catch (e) {}
+                                el.src = embed + (embed.includes('?') ? '&' : '?') + 'autoplay=1&muted=1';
+                            } else {
+                                // Generic: set src directly
+                                el.src = src;
+                            }
+                        }
+                    } else {
+                        // Optionally stop iframe if leaving view - setting src to '' would reload when re-entering; leave as is for smoother UX
+                    }
+                }
+
+                // Autoplay/pause uploaded or mp4 videos
+                if (el.tagName === 'VIDEO' && el.classList.contains('gallery-video')) {
+                    if (entry.isIntersecting) {
+                        // play muted
+                        try {
+                            el.muted = true;
+                            const playPromise = el.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(() => {
+                                    // autoplay might be blocked; keep muted attribute so it's more likely to play
+                                    el.muted = true;
+                                });
+                            }
+                        } catch (e) {}
+                    } else {
+                        try { el.pause(); } catch (e) {}
+                    }
+                }
+            });
+        }, { root: null, rootMargin: '0px', threshold: 0.5 }); // 50% visible
+
+        // Observe all gallery videos and iframe placeholders
+        const galleryVideos = document.querySelectorAll('.gallery-video');
+        galleryVideos.forEach(v => videoObserver.observe(v));
+
+        const galleryIframes = document.querySelectorAll('.gallery-iframe');
+        galleryIframes.forEach(i => videoObserver.observe(i));
+    } else {
+        // Fallback: try to play all videos muted when no IntersectionObserver
+        const galleryVideos = document.querySelectorAll('.gallery-video');
+        galleryVideos.forEach(v => {
+            try { v.muted = true; v.play(); } catch (e) {}
+        });
+    }
     
     // ==========================================================================
     // BOTONES CON EFECTOS
@@ -164,20 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
         images.forEach(img => imageObserver.observe(img));
     }
     
-    // ==========================================================================
-    // RESPONSIVE MENU (PARA FUTURAS MEJORAS)
-    // ==========================================================================
-    
-    // Preparar estructura para menú móvil hamburguesa
-    const mobileMenuButton = document.querySelector('.mobile-menu-btn');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (mobileMenuButton && navMenu) {
-        mobileMenuButton.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            this.classList.toggle('active');
-        });
-    }
+    // Responsive menu is handled in mobile-menu.js (keeps behavior centralized)
     
     // ==========================================================================
     // UTILS
@@ -298,4 +367,214 @@ const dynamicStyles = `
 const styleSheet = document.createElement('style');
 styleSheet.textContent = dynamicStyles;
 document.head.appendChild(styleSheet);
+
+// ==========================================================================
+// SLIDER AUTOMÁTICO PARA SECCIÓN SOBRE NOSOTROS
+// ==========================================================================
+
+// Variables para el slider de "Sobre Nosotros"
+let aboutSliderInterval;
+let currentAboutSlide = 0;
+let totalAboutSlides = 0;
+
+// Función para inicializar el slider automático de "Sobre Nosotros"
+function initAboutSlider() {
+    const sliderRadios = document.querySelectorAll('input[name="slider"]');
+    totalAboutSlides = sliderRadios.length;
+    
+    console.log('Inicializando slider About - Total slides:', totalAboutSlides); // Debug
+    
+    // Solo inicializar si hay más de un slide
+    if (totalAboutSlides > 1) {
+        // Encontrar cuál radio está checked inicialmente
+        sliderRadios.forEach((radio, index) => {
+            if (radio.checked) {
+                currentAboutSlide = index;
+                console.log('Slide inicial:', currentAboutSlide); // Debug
+            }
+        });
+        
+        // Iniciar el slider automático cada 3 segundos
+        aboutSliderInterval = setInterval(() => {
+            nextAboutSlide();
+        }, 3000);
+        
+        console.log('Slider About iniciado correctamente'); // Debug
+        
+        // Pausar/reanudar al pasar el mouse sobre el slider
+        const slider = document.querySelector('.css-slider');
+        if (slider) {
+            slider.addEventListener('mouseenter', () => {
+                clearInterval(aboutSliderInterval);
+                console.log('Slider About pausado'); // Debug
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                aboutSliderInterval = setInterval(() => {
+                    nextAboutSlide();
+                }, 3000);
+                console.log('Slider About reanudado'); // Debug
+            });
+        }
+        
+        // También actualizar los dots cuando se hace click manual
+        const navDots = document.querySelectorAll('.nav-dot');
+        navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentAboutSlide = index;
+                console.log('Click manual en dot:', index); // Debug
+                // Reiniciar el interval
+                clearInterval(aboutSliderInterval);
+                aboutSliderInterval = setInterval(() => {
+                    nextAboutSlide();
+                }, 3000);
+            });
+        });
+    } else {
+        console.log('No hay suficientes slides para inicializar el slider About'); // Debug
+    }
+}
+
+// Función para cambiar al siguiente slide de "Sobre Nosotros"
+function nextAboutSlide() {
+    const sliderRadios = document.querySelectorAll('input[name="slider"]');
+    
+    if (sliderRadios.length > 0) {
+        console.log('Cambiando de slide', currentAboutSlide, 'al siguiente'); // Debug
+        
+        // Desmarcar el slide actual
+        sliderRadios[currentAboutSlide].checked = false;
+        
+        // Mover al siguiente slide (circular)
+        currentAboutSlide = (currentAboutSlide + 1) % totalAboutSlides;
+        
+        // Marcar el nuevo slide (el CSS se encarga del resto automáticamente)
+        sliderRadios[currentAboutSlide].checked = true;
+        
+        console.log('Nuevo slide activo:', currentAboutSlide); // Debug
+    }
+}
+
+// ==========================================================================
+// SLIDER DE SERVICIOS
+// ==========================================================================
+
+// Variables para controlar los sliders de servicios
+let serviceSliders = {};
+let serviceIntervals = {};
+
+// Función para inicializar todos los sliders de servicios
+function initServiceSliders() {
+    // Encontrar todos los sliders de servicios
+    const sliders = document.querySelectorAll('.service-image-slider');
+    
+    sliders.forEach(slider => {
+        const serviceId = slider.dataset.serviceId;
+        const slides = slider.querySelectorAll('.service-slide');
+        
+        // Solo inicializar si hay más de una imagen
+        if (slides.length > 1) {
+            serviceSliders[serviceId] = {
+                currentSlide: 0,
+                totalSlides: slides.length,
+                slider: slider
+            };
+            
+            // Iniciar slider automático cada 4 segundos
+            serviceIntervals[serviceId] = setInterval(() => {
+                nextServiceSlide(serviceId);
+            }, 4000);
+        }
+    });
+}
+
+// Función para cambiar al siguiente slide
+function nextServiceSlide(serviceId) {
+    const sliderData = serviceSliders[serviceId];
+    if (!sliderData) return;
+    
+    const slides = sliderData.slider.querySelectorAll('.service-slide');
+    const dots = sliderData.slider.querySelectorAll('.dot');
+    
+    // Ocultar slide actual
+    slides[sliderData.currentSlide].classList.remove('active');
+    if (dots[sliderData.currentSlide]) {
+        dots[sliderData.currentSlide].classList.remove('active');
+    }
+    
+    // Mover al siguiente slide
+    sliderData.currentSlide = (sliderData.currentSlide + 1) % sliderData.totalSlides;
+    
+    // Mostrar nuevo slide
+    slides[sliderData.currentSlide].classList.add('active');
+    if (dots[sliderData.currentSlide]) {
+        dots[sliderData.currentSlide].classList.add('active');
+    }
+}
+
+// Función para ir a un slide específico (cuando se hace click en los dots)
+function currentServiceSlide(slideIndex, serviceId) {
+    // Convertir a números para asegurar compatibilidad
+    slideIndex = parseInt(slideIndex);
+    serviceId = parseInt(serviceId);
+    
+    const sliderData = serviceSliders[serviceId];
+    if (!sliderData) return;
+    
+    const slides = sliderData.slider.querySelectorAll('.service-slide');
+    const dots = sliderData.slider.querySelectorAll('.dot');
+    
+    // Ocultar slide actual
+    slides[sliderData.currentSlide].classList.remove('active');
+    if (dots[sliderData.currentSlide]) {
+        dots[sliderData.currentSlide].classList.remove('active');
+    }
+    
+    // Cambiar al slide seleccionado
+    sliderData.currentSlide = slideIndex - 1; // -1 porque slideIndex viene desde 1
+    
+    // Mostrar nuevo slide
+    slides[sliderData.currentSlide].classList.add('active');
+    if (dots[sliderData.currentSlide]) {
+        dots[sliderData.currentSlide].classList.add('active');
+    }
+    
+    // Reiniciar el interval automático
+    clearInterval(serviceIntervals[serviceId]);
+    serviceIntervals[serviceId] = setInterval(() => {
+        nextServiceSlide(serviceId);
+    }, 4000);
+}
+
+// Inicializar sliders después de que cargue el DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar slider de "Sobre Nosotros"
+    setTimeout(initAboutSlider, 100);
+    
+    // Inicializar sliders de servicios
+    setTimeout(initServiceSliders, 100);
+    
+    // Pausar/reanudar sliders al pasar el mouse
+    document.addEventListener('mouseover', function(e) {
+        if (e.target.closest('.service-image-slider')) {
+            const slider = e.target.closest('.service-image-slider');
+            const serviceId = slider.dataset.serviceId;
+            if (serviceIntervals[serviceId]) {
+                clearInterval(serviceIntervals[serviceId]);
+            }
+        }
+    });
+    
+    document.addEventListener('mouseout', function(e) {
+        if (e.target.closest('.service-image-slider')) {
+            const slider = e.target.closest('.service-image-slider');
+            const serviceId = slider.dataset.serviceId;
+            if (serviceSliders[serviceId] && serviceSliders[serviceId].totalSlides > 1) {
+                serviceIntervals[serviceId] = setInterval(() => {
+                    nextServiceSlide(serviceId);
+                }, 4000);
+            }
+        }
+    });
+});
 

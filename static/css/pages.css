@@ -49,22 +49,52 @@
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr); /* Exactamente 4 columnas */
+    gap: 2rem; /* Más espacio entre imágenes */
     margin-top: 3rem;
+    max-width: 1200px; /* Limitar ancho máximo para mejor distribución */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.service-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: var(--border-radius-medium);
-    text-align: center;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+/* Eliminar estilos de service-card, trabajar directamente con el slider */
+.service-image-slider {
+    width: 100%;
+    aspect-ratio: 3/4; /* Proporción foto carnet */
+    overflow: hidden;
+    cursor: pointer;
     transition: transform var(--transition-fast);
 }
 
-.service-card:hover {
+.service-image-slider:hover {
+    transform: translateY(-5px); /* Efecto hover directamente en la imagen */
+}
+
+/* Fallback para servicios sin imágenes */
+.service-icon-fallback {
+    aspect-ratio: 3/4;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    transition: transform var(--transition-fast);
+}
+
+.service-icon-fallback:hover {
     transform: translateY(-5px);
+}
+
+/* Padding solo para servicios con iconos */
+.service-card .icon-gold {
+    margin: 2rem;
+    margin-bottom: 1rem;
+}
+
+.service-card .subtitle-gold {
+    margin: 0 2rem 2rem 2rem;
 }
 
 .service-icon {
@@ -346,6 +376,15 @@
    RESPONSIVE PARA PÁGINAS
    ========================================================================== */
 
+/* Tablets - Pantallas medianas */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+        gap: 1.5rem; /* Buen espacio entre imágenes */
+        max-width: 800px; /* Ancho máximo apropiado */
+    }
+}
+
 @media (max-width: 768px) {
     .about-section,
     .contact-grid,
@@ -363,7 +402,21 @@
         font-size: 2rem;
     }
     
-    .services-grid,
+    .services-grid {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        gap: 1.5rem; /* Espacio generoso entre imágenes */
+        max-width: 350px; /* Ancho ajustado para formato carnet */
+    }
+    
+    .service-image-slider {
+        max-width: 100%;
+        aspect-ratio: 3/4; /* Mantener formato carnet en móvil */
+    }
+    
+    .service-icon-fallback {
+        aspect-ratio: 3/4; /* Misma proporción para consistencia */
+    }
+    
     .values-grid {
         grid-template-columns: 1fr;
     }
@@ -379,6 +432,22 @@
     
     .social-contact {
         justify-content: center;
+    }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .services-grid {
+        gap: 1rem; /* Menos espacio en pantallas muy pequeñas */
+        max-width: 280px; /* Más estrecho para acomodar formato carnet */
+    }
+    
+    .service-image-slider {
+        aspect-ratio: 3/4; /* Mantener formato carnet */
+    }
+    
+    .service-icon-fallback {
+        aspect-ratio: 3/4;
     }
 }
 

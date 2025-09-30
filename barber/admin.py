@@ -1,11 +1,19 @@
 from django.contrib import admin
-from .models import Inicio, ImagenGaleria, QuienesSomos, Contacto
+from .models import Inicio, ImagenGaleria, Servicio, ImagenServicio, QuienesSomos, Contacto
 
 # Inline para ImagenGaleria en Inicio
 class ImagenGaleriaInline(admin.TabularInline):
     model = ImagenGaleria
     extra = 1
     readonly_fields = ['vista_previa']
+    fields = ['imagen', 'video', 'video_url', 'descripcion', 'vista_previa']
+
+# Inline para ImagenServicio en Servicio
+class ImagenServicioInline(admin.TabularInline):
+    model = ImagenServicio
+    extra = 1
+    readonly_fields = ['vista_previa']
+    fields = ['imagen', 'descripcion', 'orden', 'vista_previa']
 
 @admin.register(Inicio)
 class InicioAdmin(admin.ModelAdmin):
@@ -30,6 +38,29 @@ class ImagenGaleriaAdmin(admin.ModelAdmin):
     list_display = ['inicio', 'descripcion', 'vista_previa']
     list_display_links = ['descripcion']
     list_filter = ['inicio']
+    fields = ['inicio', 'imagen', 'video', 'video_url', 'descripcion', 'vista_previa']
+
+@admin.register(Servicio)
+class ServicioAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'icono', 'orden', 'activo', 'vista_previa_imagenes']
+    list_display_links = ['titulo']
+    list_editable = ['orden', 'activo']
+    list_filter = ['activo']
+    inlines = [ImagenServicioInline]
+    
+    fieldsets = (
+        ('Información del Servicio', {
+            'fields': ('titulo', 'icono', 'orden', 'activo'),
+            'description': 'Información básica del servicio. El icono debe ser una clase de FontAwesome.'
+        }),
+    )
+
+@admin.register(ImagenServicio)
+class ImagenServicioAdmin(admin.ModelAdmin):
+    list_display = ['servicio', 'descripcion', 'orden', 'vista_previa']
+    list_display_links = ['descripcion']
+    list_editable = ['orden']
+    list_filter = ['servicio']
 
 @admin.register(QuienesSomos)
 class QuienesSomosAdmin(admin.ModelAdmin):
