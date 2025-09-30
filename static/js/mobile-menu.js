@@ -39,6 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (mobileMenuBtn && navMenu) {
         console.log('✅ Configurando menú móvil...');
+        // Self-test: attempt to toggle classes programmatically to ensure toggling works in this UA
+        try {
+            mobileMenuBtn.classList.add('__test_toggle__');
+            mobileMenuBtn.classList.remove('__test_toggle__');
+            console.log('🔧 Self-test toggle OK');
+        } catch (e) {
+            console.warn('⚠️ Self-test toggle falló', e);
+        }
         
         mobileMenuBtn.addEventListener('click', function(e) {
             e.preventDefault();

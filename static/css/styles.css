@@ -1267,7 +1267,7 @@ main {
         padding: 0 !important;
         gap: 0 !important;
         transition: max-height 0.3s ease, padding 0.3s ease !important;
-        z-index: 999 !important;
+        z-index: 1002 !important; /* ensure menu sits above header (header z-index:1000) */
         list-style: none !important;
         overflow: hidden !important;
         border-bottom: 2px solid #d4af37 !important;
@@ -1278,6 +1278,7 @@ main {
     .nav-menu.active {
         max-height: 180px !important; /* Reducido de 300px a 180px */
         padding: 0.5rem 0 !important; /* Reducido padding */
+        z-index: 1002 !important;
     }
     
     /* Enlaces del menú móvil - MÁS COMPACTOS */
@@ -1418,6 +1419,40 @@ main {
         font-family: 'Ubuntu', sans-serif;
         font-weight: 400;
         letter-spacing: 0.3px;
+    }
+}
+
+/* Additional responsive rules specifically for Archivo Black section titles
+   (these are the 'otros títulos' que no son 'Sobre Nosotros' - Kaushan Script) */
+@media (max-width: 768px) {
+    .section-title.archivo-black {
+        font-size: 1.9rem; /* reduce a tablet/móvil grande */
+        letter-spacing: 0.8px;
+        line-height: 1.05;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title.archivo-black {
+        font-size: 1.5rem; /* smartphones */
+        letter-spacing: 0.6px;
+        line-height: 1.05;
+        padding: 0 1rem; /* evitar que el texto toque los bordes */
+    }
+
+    /* Ajuste general para títulos en pantallas muy pequeñas */
+    .section-title {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .section-title.archivo-black {
+        font-size: 1.35rem; /* very small phones */
+        letter-spacing: 0.4px;
+    }
+    .section-title {
+        font-size: 1.4rem;
     }
 }
 @media (max-width: 768px) {

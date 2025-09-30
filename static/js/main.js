@@ -246,20 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
         images.forEach(img => imageObserver.observe(img));
     }
     
-    // ==========================================================================
-    // RESPONSIVE MENU (PARA FUTURAS MEJORAS)
-    // ==========================================================================
-    
-    // Preparar estructura para menú móvil hamburguesa
-    const mobileMenuButton = document.querySelector('.mobile-menu-btn');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (mobileMenuButton && navMenu) {
-        mobileMenuButton.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            this.classList.toggle('active');
-        });
-    }
+    // Responsive menu is handled in mobile-menu.js (keeps behavior centralized)
     
     // ==========================================================================
     // UTILS
