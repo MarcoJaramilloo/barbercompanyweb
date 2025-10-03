@@ -13,8 +13,8 @@
 
 /* Hero base - sobrescribir pages.css */
 section.hero.hero-small {
-    height: 35vh !important;
-    min-height: 200px !important;
+    height: 40vh !important;
+    min-height: 220px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -448,8 +448,8 @@ section.hero.hero-small {
     /* ===== HERO SECTION RESPONSIVE ===== */
     /* Ajustar hero para que funcione con header responsive */
     section.hero.hero-small {
-        height: 30vh !important;
-        min-height: 170px !important;
+        height: 32vh !important;
+        min-height: 180px !important;
         margin-top: 0 !important;
         justify-content: center !important;
         padding-top: 10px !important;
@@ -561,6 +561,7 @@ section.hero.hero-small {
 }
 
 /* ===== RESPONSIVE MÓVIL (≤480px) ===== */
+@media (max-width: 480px) {
     section.hero.hero-small {
         height: 25vh !important;
         min-height: 150px !important;
@@ -570,6 +571,8 @@ section.hero.hero-small {
     .hero h1 {
         font-size: 2.2rem !important;
         letter-spacing: 1.5px !important;
+    }
+
     .hero .subtitle {
         font-size: 1rem !important;
         font-weight: 400 !important;
