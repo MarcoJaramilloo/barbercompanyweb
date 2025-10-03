@@ -1,0 +1,246 @@
+/* =====================================================
+   CONTACTO - ESTILOS ESPECÍFICOS Y RESPONSIVE
+   Diseño alineado con 'Quiénes Somos' (Archivo Black + Ubuntu)
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+
+/* Hero estilos similares a Quiénes Somos */
+.contact-page .hero.hero-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+}
+
+.contact-page .hero h1 {
+    font-family: 'Archivo Black', 'Arial Black', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: #E6C68A; /* dorado claro */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 0.6rem;
+    line-height: 1.1;
+}
+
+.contact-page .hero .subtitle {
+    font-family: 'Ubuntu', 'Helvetica', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    letter-spacing: 0.5px;
+}
+
+/* Sección principal */
+.contact-page .section.section-light {
+    padding: 3rem 0;
+}
+
+/* Social */
+.contact-page .social-contact {
+    display: flex;
+    gap: 1rem;
+}
+.contact-page .social-contact-link {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+.contact-page .social-contact-link:hover {
+    transform: scale(1.12);
+}
+
+/* Quick actions */
+.contact-page .quick-actions { margin-top: 2rem; }
+.contact-page .quick-actions .btn { width: 100%; justify-content: center; }
+
+/* Mapa */
+.contact-page .map-container {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ====== VISÍTANOS CARD ====== */
+.visit-us-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    border: 1px solid rgba(212,175,55,0.18);
+}
+
+.visit-address-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.visit-address-header i {
+    color: #d4af37;
+    font-size: 1.4rem;
+}
+
+.visit-address-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.visit-address-header p {
+    margin: 0.2rem 0 0 0;
+    color: #666;
+}
+
+.visit-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.visit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.visit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.visit-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.visit-item h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.visit-item span { color: #222; font-weight: 600; font-size: 0.98rem; }
+.visit-item .visit-value { 
+    display: inline-block; 
+    max-width: 100%; 
+    overflow-wrap: anywhere; 
+    word-break: break-word; 
+}
+
+.visit-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(212,175,55,0.12);
+    color: #d4af37;
+    font-size: 1.1rem;
+}
+.visit-icon.whatsapp { background: rgba(37,211,102,0.12); color: #25d366; }
+
+.visit-social { margin-top: 1.2rem; }
+.visit-social h4 { margin: 0 0 0.6rem 0; color: #333; }
+.visit-social-links { display: flex; gap: 0.8rem; }
+.visit-social-links a { font-size: 1.5rem; color: #666; transition: transform .2s, color .2s; }
+.visit-social-links a:hover { color: #d4af37; transform: translateY(-2px); }
+
+/* Copy address feedback (simple) */
+.copy-address.copied { background: #d4af37; color: #000; }
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+    .visit-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .visit-grid { grid-template-columns: 1fr; }
+}
+
+/* ====== MAP GRID / ROUTE CARD ====== */
+.map-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.map-card {
+    background: #111;
+    border-radius: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}
+
+.map-card .map-container iframe,
+.map-card .map-container > div {
+    width: 100% !important;
+    height: 420px !important;
+    display: block;
+}
+
+.route-card {
+    background: #181818;
+    border-radius: 16px;
+    padding: 1.2rem;
+    border: 1px solid rgba(212,175,55,0.18);
+    color: #ddd;
+}
+
+.route-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.qr-wrap {
+    margin-top: 0.5rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.qr-wrap img { background: #fff; border-radius: 8px; }
+.qr-wrap span { font-size: 0.85rem; color: #bbb; }
+
+.route-tips { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+.route-tips li { color: #ccc; font-size: 0.95rem; }
+.route-tips i { color: #d4af37; margin-right: 0.4rem; }
+
+@media (max-width: 900px) {
+    .map-grid { grid-template-columns: 1fr; }
+    .map-card .map-container iframe,
+    .map-card .map-container > div { height: 360px !important; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-page .hero.hero-small {
+        height: 32vh;
+        min-height: 180px;
+        padding-top: 10px;
+    }
+    .contact-page .hero h1 { font-size: 2.6rem; letter-spacing: 2px; }
+    .contact-page .hero .subtitle { font-size: 1.05rem; }
+}
+
+@media (max-width: 480px) {
+    .contact-page .hero.hero-small {
+        height: 28vh;
+        min-height: 160px;
+    }
+    .contact-page .hero h1 { font-size: 2.2rem; letter-spacing: 1.4px; }
+    .contact-page .hero .subtitle { font-size: 0.98rem; }
+}

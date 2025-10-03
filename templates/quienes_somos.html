@@ -4,7 +4,7 @@
 {% block title %}{{ quienes_somos.titulo|default:"Quiénes Somos" }}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/quienes-somos.css' %}?v=2025091101">
+<link rel="stylesheet" href="{% static 'css/quienes-somos.css' %}?v={% now 'U' %}">
 {% endblock %}
 
 {% block extra_js %}

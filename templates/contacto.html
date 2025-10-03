@@ -3,7 +3,14 @@
 
 {% block title %}Contacto{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contacto.css' %}?v={% now 'U' %}">
+{% endblock %}
+
+{# Sin JS extra en Contacto #}
+
 {% block content %}
+<div class="contact-page">
 <!-- Hero Section -->
 <section class="hero hero-small">
     <div class="hero-content fade-in-up">
@@ -18,100 +25,80 @@
         <div class="grid-two-columns">
             <!-- Contact Details -->
             <div>
-                <h2 class="title-gold">
-                    Visítanos
-                </h2>
-                
-                <div class="space-y">
+                <h2 class="title-gold">Visítanos</h2>
+
+                <div class="visit-us-card">
                     {% if contacto.direccion %}
-                    <div class="contact-item">
-                        <div class="icon-gold-large">
+                    <div class="visit-address">
+                        <div class="visit-address-header">
                             <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Dirección</h3>
+                                <p>{{ contacto.direccion }}</p>
+                            </div>
                         </div>
-                        <div class="contact-info">
-                            <h3>Dirección</h3>
-                            <p class="text-gray">{{ contacto.direccion }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    {% if contacto.telefono %}
-                    <div class="contact-item">
-                        <div class="icon-gold-large">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>Teléfono</h3>
-                            <p class="text-gray">
-                                <a href="tel:{{ contacto.telefono }}" class="link-gold">
-                                    {{ contacto.telefono }}
-                                </a>
-                            </p>
+                        <div class="visit-actions">
+                            {% if contacto.mapa_google_link %}
+                            <a class="btn-primary" href="{{ contacto.mapa_google_link }}" target="_blank" rel="noopener">
+                                <i class="fas fa-location-arrow"></i> Cómo llegar
+                            </a>
+                            {% endif %}
                         </div>
                     </div>
                     {% endif %}
 
-                    {% if contacto.email %}
-                    <div class="contact-item">
-                        <div class="icon-gold-large">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>Email</h3>
-                            <p class="text-gray">
-                                <a href="mailto:{{ contacto.email }}" class="link-gold">
-                                    {{ contacto.email }}
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    {% endif %}
+                    <div class="visit-grid">
+                        {% if contacto.telefono %}
+                        <a class="visit-item" href="tel:{{ contacto.telefono }}">
+                            <span class="visit-icon"><i class="fas fa-phone"></i></span>
+                            <div>
+                                <h4>Teléfono</h4>
+                                <span class="visit-value">{{ contacto.telefono }}</span>
+                            </div>
+                        </a>
+                        {% endif %}
 
-                    {% if contacto.whatsapp %}
-                    <div class="contact-item">
-                        <div class="icon-whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>WhatsApp</h3>
-                            <p class="text-gray">
-                                <a href="https://wa.me/{{ contacto.whatsapp }}" style="color: #25d366; text-decoration: none;" target="_blank">
-                                    {{ contacto.whatsapp }}
-                                </a>
-                            </p>
+                        {% if contacto.email %}
+                        <a class="visit-item" href="mailto:{{ contacto.email }}">
+                            <span class="visit-icon"><i class="fas fa-envelope"></i></span>
+                            <div>
+                                <h4>Email</h4>
+                                <span class="visit-value">{{ contacto.email }}</span>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                        {% if contacto.whatsapp %}
+                        <a class="visit-item" href="https://wa.me/{{ contacto.whatsapp }}" target="_blank">
+                            <span class="visit-icon whatsapp"><i class="fab fa-whatsapp"></i></span>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <span class="visit-value">{{ contacto.whatsapp }}</span>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    {% if contacto.facebook or contacto.instagram or contacto.tiktok or contacto.youtube %}
+                    <div class="visit-social">
+                        <h4>Síguenos</h4>
+                        <div class="visit-social-links">
+                            {% if contacto.facebook %}
+                            <a href="{{ contacto.facebook }}" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                            {% endif %}
+                            {% if contacto.instagram %}
+                            <a href="{{ contacto.instagram }}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            {% endif %}
+                            {% if contacto.tiktok %}
+                            <a href="{{ contacto.tiktok }}" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                            {% endif %}
+                            {# {% if contacto.youtube %}
+                            <a href="{{ contacto.youtube }}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            {% endif %} #}
                         </div>
                     </div>
                     {% endif %}
                 </div>
-
-                <!-- Social Links -->
-                {% if contacto.facebook or contacto.instagram or contacto.tiktok or contacto.youtube %}
-                <div style="margin-top: 3rem;">
-                    <h3 style="color: #333; margin-bottom: 1rem;">Síguenos en Redes Sociales</h3>
-                    <div style="display: flex; gap: 1rem;">
-                        {% if contacto.facebook %}
-                        <a href="{{ contacto.facebook }}" target="_blank" style="color: #1877f2; font-size: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        {% endif %}
-                        {% if contacto.instagram %}
-                        <a href="{{ contacto.instagram }}" target="_blank" style="color: #e4405f; font-size: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        {% endif %}
-                        {% if contacto.tiktok %}
-                        <a href="{{ contacto.tiktok }}" target="_blank" style="color: #000; font-size: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                        {% endif %}
-                        <!--{% if contacto.youtube %}
-                        <a href="{{ contacto.youtube }}" target="_blank" style="color: #ff0000; font-size: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        {% endif %}-->
-                    </div>
-                </div>
-                {% endif %}
             </div>
 
             <!-- Horarios -->
@@ -173,13 +160,31 @@
 {% if contacto.mapa_google %}
 <section class="section section-dark">
     <div class="container">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #d4af37; text-align: center; margin-bottom: 3rem;">
-            Cómo Llegar
-        </h2>
-        <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
-            {{ contacto.mapa_google|safe }}
+        <h2 class="cta-title" style="text-align:center;">Cómo llegar</h2>
+        <div class="map-grid">
+            <div class="map-card">
+                <div class="map-container">
+                    {{ contacto.mapa_google|safe }}
+                </div>
+            </div>
+            <div class="route-card">
+                <h3>Tu ruta rápida</h3>
+                <p style="color:#ccc; margin-bottom:1rem;">Abre tu app favorita y sigue la ruta hasta nuestro local.</p>
+                <div class="route-actions">
+                    {% if contacto.mapa_google_link %}
+                    <a class="btn-primary" href="{{ contacto.mapa_google_link }}" target="_blank" rel="noopener">
+                        <i class="fas fa-map-marker-alt"></i> Google Maps
+                    </a>
+                    {% endif %}
+                </div>
+                <ul class="route-tips">
+                    <li><i class="fas fa-location-arrow"></i> Dirección: {{ contacto.direccion }}</li>
+                    <li><i class="fas fa-phone"></i> ¿Dudas? Llámanos: {{ contacto.telefono }}</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
 {% endif %}
+    </div>
 {% endblock %}
