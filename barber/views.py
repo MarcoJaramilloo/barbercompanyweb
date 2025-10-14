@@ -8,7 +8,8 @@ def get_common_context():
     contacto = Contacto.objects.first()
     servicios = Servicio.objects.filter(activo=True).order_by('orden')
 
-    galeria = inicio.galeria.all() if inicio else []
+    # Respetar el orden explícito definido en cada ImagenGaleria (campo 'orden')
+    galeria = inicio.galeria.all().order_by('orden', 'id') if inicio else []
 
     contexto = {
         'inicio': inicio,

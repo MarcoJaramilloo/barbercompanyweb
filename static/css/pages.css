@@ -457,7 +457,8 @@
 
 /* Hero personalizado para contacto y quienes somos */
 .hero-small {
-    height: 60vh;
+    height: 30vh; /* Reducido de 60vh a 30vh - mucho más compacto */
+    min-height: 200px; /* Altura mínima para pantallas pequeñas */
 }
 
 /* Grids principales */

@@ -12,7 +12,7 @@
 {% block content %}
 <div class="contact-page">
 <!-- Hero Section -->
-<section class="hero hero-small">
+<section class="hero hero-small" {% if contacto.imagen_fondo_hero %}style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ contacto.imagen_fondo_hero.url }}') center/cover no-repeat;"{% endif %}>
     <div class="hero-content fade-in-up">
         <h1>Contacto</h1>
         <p class="subtitle">Estamos aquí para atenderte</p>
@@ -79,7 +79,7 @@
                         {% endif %}
                     </div>
 
-                    {% if contacto.facebook or contacto.instagram or contacto.tiktok or contacto.youtube %}
+                    {% if contacto.facebook or contacto.instagram or contacto.tiktok %}
                     <div class="visit-social">
                         <h4>Síguenos</h4>
                         <div class="visit-social-links">
@@ -92,9 +92,6 @@
                             {% if contacto.tiktok %}
                             <a href="{{ contacto.tiktok }}" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
                             {% endif %}
-                            {# {% if contacto.youtube %}
-                            <a href="{{ contacto.youtube }}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-                            {% endif %} #}
                         </div>
                     </div>
                     {% endif %}
@@ -145,7 +142,7 @@
                         </a>
                         {% endif %}
                         {% if contacto.telefono %}
-                        <a href="tel:{{ contacto.telefono }}" class="btn-secondary" style="justify-content: center;">
+                        <a href="tel:{{ contacto.telefono }}" class="btn-primary" style="justify-content: center;">
                             <i class="fas fa-phone"></i> Llamar Ahora
                         </a>
                         {% endif %}

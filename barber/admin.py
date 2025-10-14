@@ -6,7 +6,7 @@ class ImagenGaleriaInline(admin.TabularInline):
     model = ImagenGaleria
     extra = 1
     readonly_fields = ['vista_previa']
-    fields = ['imagen', 'video', 'video_url', 'descripcion', 'vista_previa']
+    fields = ['imagen', 'video', 'video_url', 'descripcion', 'orden', 'vista_previa']
 
 # Inline para ImagenServicio en Servicio
 class ImagenServicioInline(admin.TabularInline):
@@ -35,10 +35,11 @@ class InicioAdmin(admin.ModelAdmin):
 
 @admin.register(ImagenGaleria)
 class ImagenGaleriaAdmin(admin.ModelAdmin):
-    list_display = ['inicio', 'descripcion', 'vista_previa']
+    list_display = ['inicio', 'descripcion', 'orden', 'vista_previa']
     list_display_links = ['descripcion']
     list_filter = ['inicio']
-    fields = ['inicio', 'imagen', 'video', 'video_url', 'descripcion', 'vista_previa']
+    list_editable = ['orden']
+    fields = ['inicio', 'imagen', 'video', 'video_url', 'descripcion', 'orden', 'vista_previa']
 
 @admin.register(Servicio)
 class ServicioAdmin(admin.ModelAdmin):
@@ -97,7 +98,8 @@ class ContactoAdmin(admin.ModelAdmin):
     list_display_links = ['nombre_empresa']
     fieldsets = (
         ('Información de la Empresa', {
-            'fields': ('nombre_empresa', 'logo_navbar')
+            'fields': ('nombre_empresa', 'logo_navbar', 'imagen_fondo_hero'),
+            'description': 'La imagen de fondo hero se mostrará como fondo en la sección superior de la página de contacto.'
         }),
         ('Información Básica', {
             'fields': ('direccion', 'telefono', 'email', 'whatsapp')
