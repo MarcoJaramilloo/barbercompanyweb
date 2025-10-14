@@ -11,24 +11,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 220px;
+    height: 25vh !important; /* Forzar altura más pequeña */
+    min-height: 160px !important; /* Reducido de 220px a 160px */
+    max-height: 250px !important; /* Limitar altura máxima */
+    padding: 1.5rem 0 !important; /* Padding más compacto */
 }
 
 .contact-page .hero h1 {
     font-family: 'Archivo Black', 'Arial Black', sans-serif;
-    font-size: 3.2rem;
+    font-size: 2.8rem; /* Reducido de 3.2rem */
     font-weight: 900;
     color: #E6C68A; /* dorado claro */
     text-transform: uppercase;
     letter-spacing: 3px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.4rem; /* Reducido de 0.6rem */
     line-height: 1.1;
 }
 
 .contact-page .hero .subtitle {
     font-family: 'Ubuntu', 'Helvetica', sans-serif;
-    font-size: 1.15rem;
+    font-size: 1.05rem; /* Reducido de 1.15rem */
     font-weight: 400;
     color: rgba(255, 255, 255, 0.95);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
@@ -228,19 +231,22 @@
 /* Responsive */
 @media (max-width: 768px) {
     .contact-page .hero.hero-small {
-        height: 32vh;
-        min-height: 180px;
-        padding-top: 10px;
+        height: 22vh !important; /* Forzar altura pequeña en tablet */
+        min-height: 140px !important; /* Reducido de 180px */
+        max-height: 200px !important; /* Limitar altura máxima */
+        padding: 1.5rem 0 !important; /* Padding compacto */
     }
-    .contact-page .hero h1 { font-size: 2.6rem; letter-spacing: 2px; }
-    .contact-page .hero .subtitle { font-size: 1.05rem; }
+    .contact-page .hero h1 { font-size: 2.4rem; letter-spacing: 2px; } /* Reducido de 2.6rem */
+    .contact-page .hero .subtitle { font-size: 1rem; } /* Reducido de 1.05rem */
 }
 
 @media (max-width: 480px) {
     .contact-page .hero.hero-small {
-        height: 28vh;
-        min-height: 160px;
+        height: 20vh !important; /* Forzar altura muy pequeña en móvil */
+        min-height: 120px !important; /* Reducido de 160px */
+        max-height: 180px !important; /* Limitar altura máxima */
+        padding: 1.2rem 0 !important; /* Padding más compacto */
     }
-    .contact-page .hero h1 { font-size: 2.2rem; letter-spacing: 1.4px; }
-    .contact-page .hero .subtitle { font-size: 0.98rem; }
+    .contact-page .hero h1 { font-size: 2rem; letter-spacing: 1.4px; } /* Reducido de 2.2rem */
+    .contact-page .hero .subtitle { font-size: 0.95rem; } /* Reducido de 0.98rem */
 }

@@ -45,6 +45,7 @@ class ImagenGaleria(models.Model):
     video = models.FileField(upload_to="galeria/videos/", blank=True, null=True, verbose_name="Archivo de video")
     video_url = models.URLField(blank=True, null=True, verbose_name="URL de video", help_text="YouTube, Vimeo o enlace directo (.mp4)")
     descripcion = models.CharField(max_length=255, blank=True, null=True)
+    orden = models.PositiveIntegerField(default=0, verbose_name="Orden de aparición")
 
     def vista_previa(self):
         # Mostrar preview de video si existe, sino imagen
@@ -60,6 +61,7 @@ class ImagenGaleria(models.Model):
     class Meta:
         verbose_name = "Imagen de Galería"
         verbose_name_plural = "2. Galería de Imágenes"
+        ordering = ['orden', 'id']
 
 
 # Modelo para los servicios
@@ -290,6 +292,7 @@ class Contacto(models.Model):
     # Información de la empresa
     nombre_empresa = models.CharField(max_length=100, default="Barbería")
     logo_navbar = models.ImageField(upload_to="logos/", blank=True, null=True, help_text="Logo para el menú de navegación (recomendado: .png o .jpg, tamaño pequeño como icono)")
+    imagen_fondo_hero = models.ImageField(upload_to="contacto/", blank=True, null=True, verbose_name="Imagen de Fondo Hero", help_text="Imagen de fondo para la sección hero de la página de contacto")
     
     # Información básica
     direccion = models.CharField(max_length=255)
@@ -313,9 +316,16 @@ class Contacto(models.Model):
     mapa_google_link = models.URLField("Enlace directo de Google Maps", blank=True, null=True, help_text="Pega aquí el enlace directo de la ubicación en Google Maps (no el iframe)")
 
     def vista_previa_logo(self):
+        html = ""
         if self.logo_navbar:
-            return mark_safe('<img width="100" height="60" src="/media/%s">' % self.logo_navbar)
-        return "Sin logo"
+            html += '<p><strong>Logo Navbar:</strong></p>'
+            html += f'<img width="100" height="60" src="/media/{self.logo_navbar}"><br><br>'
+        if self.imagen_fondo_hero:
+            html += '<p><strong>Imagen Fondo Hero:</strong></p>'
+            html += f'<img width="150" height="100" src="/media/{self.imagen_fondo_hero}" style="border-radius:5px;">'
+        if not html:
+            return "Sin imágenes"
+        return mark_safe(html)
 
     def __str__(self):
         return f"Contacto: {self.nombre_empresa}"

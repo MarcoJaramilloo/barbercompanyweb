@@ -191,53 +191,58 @@
     </div>
 </section>
 
-<!-- Gallery Section -->
+<!-- Gallery Section (basic row gallery) -->
 <section class="section section-light" id="galeria">
     <div class="container">
         <h2 class="section-title archivo-black">Algunos de Nuestros Trabajos</h2>
         <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 3rem;">
             Consulta nuestra galería y déjate inspirar por nuestros trabajos
         </p>
-        
-        <div class="collage-grid">
+
+        <div class="collage-grid js-masonry">
+            <div class="grid-sizer"></div>
             {% for item in galeria %}
-            <div class="collage-item">
                 {% if item.video or item.video_url %}
-                    {% if item.video %}
-                        <video class="collage-media gallery-video" muted playsinline preload="metadata" controls>
-                            <source src="{{ item.video.url }}" type="video/mp4">
-                            Tu navegador no soporta el elemento video.
-                        </video>
-                    {% else %}
-                        {# Soporte para URL (YouTube/Vimeo) - si es YouTube/Vimeo, dejamos data-src y creamos iframe que se inicializa desde JS al hacerse visible #}
-                        {% if 'youtube.com' in item.video_url or 'youtu.be' in item.video_url %}
-                            <div class="video-embed">
-                                <iframe class="collage-media gallery-iframe" data-src="{{ item.video_url }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        {% elif 'vimeo.com' in item.video_url %}
-                            <div class="video-embed">
-                                <iframe class="collage-media gallery-iframe" data-src="{{ item.video_url }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        {% else %}
-                            <video class="collage-media gallery-video" muted playsinline preload="metadata" controls>
-                                <source src="{{ item.video_url }}" type="video/mp4">
+                    <div class="collage-item">
+                        {% if item.video %}
+                            <video class="collage-media basic-media" muted playsinline preload="metadata" controls>
+                                <source src="{{ item.video.url }}" type="video/mp4">
                                 Tu navegador no soporta el elemento video.
                             </video>
+                        {% else %}
+                            {% if 'youtube.com' in item.video_url or 'youtu.be' in item.video_url %}
+                                <div class="video-embed">
+                                    <iframe class="collage-media basic-media" src="{{ item.video_url }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            {% elif 'vimeo.com' in item.video_url %}
+                                <div class="video-embed">
+                                    <iframe class="collage-media basic-media" src="{{ item.video_url }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            {% else %}
+                                <video class="collage-media basic-media" muted playsinline preload="metadata" controls>
+                                    <source src="{{ item.video_url }}" type="video/mp4">
+                                </video>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                {% else %}
-                    <img src="{{ item.imagen.url }}" alt="{{ item.descripcion }}" class="collage-media" loading="lazy">
-                {% endif %}
 
-                {% if item.descripcion %}
-                <div class="collage-caption">{{ item.descripcion }}</div>
+                        {% if item.descripcion %}
+                            <div class="collage-caption">{{ item.descripcion }}</div>
+                        {% endif %}
+                    </div>
+                {% elif item.imagen %}
+                    <div class="collage-item">
+                        <img src="{{ item.imagen.url }}" alt="{{ item.descripcion }}" class="collage-media basic-media" loading="lazy">
+                        {% if item.descripcion %}
+                            <div class="collage-caption">{{ item.descripcion }}</div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    {# skip items without media #}
                 {% endif %}
-            </div>
             {% empty %}
-            <div class="collage-empty">
-                <i class="fas fa-images" style="font-size: 3rem; margin-bottom: 1rem; color: #d4af37;"></i>
-                <p>Próximamente agregaremos nuestra galería de trabajos.</p>
-            </div>
+                <div class="collage-item" style="width:100%">
+                    <div style="text-align:center; padding:3rem; color:#666;">Próximamente agregaremos nuestra galería de trabajos.</div>
+                </div>
             {% endfor %}
         </div>
     </div>

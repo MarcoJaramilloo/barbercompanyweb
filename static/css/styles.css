@@ -277,60 +277,49 @@
         display: inline-block; /* permite que el icono rote con su contenedor */
 }
 
-/* Collage Gallery Styles */
-
-/* Masonry-like collage using CSS columns so items flow like bricks */
+/* Collage / Masonry-friendly gallery styles */
 .collage-grid {
-    column-count: 4;
-    column-gap: 1rem;
+    position: relative;
+}
+
+.collage-grid .grid-sizer {
+    width: 25%; /* 4 columns default */
 }
 
 .collage-item {
-    display: inline-block; /* important for column layout */
-    width: 100%;
-    margin: 0 0 1rem; /* space between items vertically */
-    break-inside: avoid;
-    background: transparent;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: transform 0.25s ease;
+    width: 25%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem; /* gutter inside items */
+    transition: transform 0.18s ease;
 }
 
-.collage-item:hover {
-    transform: translateY(-6px);
-}
+.collage-item:hover { transform: translateY(-6px); }
 
 .collage-media {
-    width: 100%;
-    height: auto; /* respetar altura original y relación de aspecto */
     display: block;
-    object-fit: cover; /* preferimos cover to fill width while preserving ratio */
-    border-radius: 0; /* esquinas puntiagudas */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0;
 }
 
 .collage-caption {
-    padding: 0.6rem 0.35rem;
+    padding: 0.5rem 0.6rem;
     color: #444;
     font-size: 0.95rem;
 }
 
-.collage-empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 3rem;
-    color: #666;
-}
-
-
 @media (max-width: 1100px) {
-    .collage-grid { column-count: 3; }
+    .collage-grid .grid-sizer, .collage-item { width: 33.3333%; }
 }
 
 @media (max-width: 768px) {
-    .collage-grid { column-count: 2; }
+    .collage-grid .grid-sizer, .collage-item { width: 50%; }
 }
 
 @media (max-width: 480px) {
-    .collage-grid { column-count: 1; }
+    .collage-grid .grid-sizer, .collage-item { width: 100%; }
 }
 
 @media (max-width: 600px) {
@@ -663,8 +652,13 @@ main {
 /* Imagen del título principal */
 .titulo-imagen {
     display: block;
-    margin: -15rem auto 0.5rem auto; /* Reducido de 1rem a 0.5rem para aún menos espacio */
+    margin-top: -15rem; /* Margen superior negativo */
+    margin-bottom: 0.5rem; /* Espacio inferior */
+    margin-left: calc(50% + 1px); /* Ligeramente a la derecha del centro */
+    margin-right: auto; /* Centrado horizontal */
+    transform: translateX(-50%); /* Ajuste fino para centrado */
     max-width: 90%;
+    width: auto;
     height: auto;
     border-radius: 10px; /* opcional */
 }
@@ -1341,8 +1335,13 @@ main {
 
     /* Ajustes específicos para imagen del logo en móvil - MÁS ARRIBA */
     .titulo-imagen {
-        max-width: 85% !important; 
-        margin: -250px auto 20rem auto !important; /* Reducido espacio inferior de 0.8rem a 0.3rem */
+        max-width: 85% !important;
+        width: auto !important;
+        margin-top: -250px !important;
+        margin-bottom: 20rem !important;
+        margin-left: calc(50% + 1px) !important; /* Ligeramente a la derecha */
+        margin-right: auto !important;
+        transform: translateX(-50%) !important; /* Ajuste fino */
     }
 
     .hero-texto {
@@ -1403,7 +1402,11 @@ main {
     }
     @media (min-width: 450px) and (max-width: 768px) {
     .titulo-imagen {
-        margin: -8rem auto 2rem auto !important; /* Menos margen negativo solo en este rango */
+        margin-top: -8rem !important;
+        margin-bottom: 2rem !important;
+        margin-left: calc(50% + 1px) !important; /* Ligeramente a la derecha */
+        margin-right: auto !important;
+        transform: translateX(-50%) !important; /* Ajuste fino */
     }
     .hero-texto {
         margin-top: -8rem !important; /* Menos margen negativo solo en este rango */

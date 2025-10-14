@@ -100,86 +100,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Autoplay / pause for gallery videos and lazy-init for iframe embeds
-    if ('IntersectionObserver' in window) {
-        const videoObserver = new IntersectionObserver((entries) => {
+    // Ensure gallery videos are muted by default so section-level autoplay can work
+    const galleryVideos = document.querySelectorAll('video.basic-media');
+    galleryVideos.forEach(v => { try { v.muted = true; } catch (e) {} });
+
+    // Play / pause all gallery videos when the gallery section itself is shown/hidden
+    const gallerySection = document.querySelector('#galeria');
+    if (gallerySection && 'IntersectionObserver' in window) {
+        const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const el = entry.target;
-
-                // If it's an iframe placeholder, set src when it becomes visible
-                if (el.classList && el.classList.contains('gallery-iframe')) {
-                    if (entry.isIntersecting) {
-                        if (!el.src || el.src === '') {
-                            const src = el.dataset.src;
-                            // If Youtube/Vimeo share URL, try to normalize to autoplay=1&mute=1 later in HTML by JS
-                            // For now, append autoplay parameters for common hosts
-                            if (src && (src.includes('youtube.com') || src.includes('youtu.be'))) {
-                                // Normalize YouTube watch URL -> embed URL
-                                let embed = src;
-                                // convert youtu.be short links
-                                try {
-                                    if (embed.includes('youtu.be/')) {
-                                        const id = embed.split('youtu.be/')[1].split(/[?&]/)[0];
-                                        embed = 'https://www.youtube.com/embed/' + id;
-                                    } else if (embed.includes('watch?v=')) {
-                                        const id = embed.split('watch?v=')[1].split(/[?&]/)[0];
-                                        embed = 'https://www.youtube.com/embed/' + id;
-                                    }
-                                } catch (e) {
-                                    // keep original if parsing fails
-                                }
-                                el.src = embed + (embed.includes('?') ? '&' : '?') + 'autoplay=1&mute=1&rel=0&modestbranding=1';
-                            } else if (src && src.includes('vimeo.com')) {
-                                // Convert typical vimeo url to player url
-                                let embed = src;
-                                try {
-                                    const m = embed.match(/vimeo.com\/(\d+)/);
-                                    if (m && m[1]) embed = 'https://player.vimeo.com/video/' + m[1];
-                                } catch (e) {}
-                                el.src = embed + (embed.includes('?') ? '&' : '?') + 'autoplay=1&muted=1';
-                            } else {
-                                // Generic: set src directly
-                                el.src = src;
-                            }
-                        }
-                    } else {
-                        // Optionally stop iframe if leaving view - setting src to '' would reload when re-entering; leave as is for smoother UX
-                    }
-                }
-
-                // Autoplay/pause uploaded or mp4 videos
-                if (el.tagName === 'VIDEO' && el.classList.contains('gallery-video')) {
-                    if (entry.isIntersecting) {
-                        // play muted
+                const vids = gallerySection.querySelectorAll('video.basic-media');
+                if (entry.isIntersecting) {
+                    vids.forEach(v => {
                         try {
-                            el.muted = true;
-                            const playPromise = el.play();
-                            if (playPromise !== undefined) {
-                                playPromise.catch(() => {
-                                    // autoplay might be blocked; keep muted attribute so it's more likely to play
-                                    el.muted = true;
-                                });
-                            }
+                            v.muted = true;
+                            const p = v.play();
+                            if (p !== undefined) p.catch(()=>{});
                         } catch (e) {}
-                    } else {
-                        try { el.pause(); } catch (e) {}
-                    }
+                    });
+                } else {
+                    vids.forEach(v => { try { v.pause(); } catch (e) {} });
                 }
             });
-        }, { root: null, rootMargin: '0px', threshold: 0.5 }); // 50% visible
+        }, { root: null, rootMargin: '0px', threshold: 0.25 }); // start when ~25% of gallery is visible
 
-        // Observe all gallery videos and iframe placeholders
-        const galleryVideos = document.querySelectorAll('.gallery-video');
-        galleryVideos.forEach(v => videoObserver.observe(v));
-
-        const galleryIframes = document.querySelectorAll('.gallery-iframe');
-        galleryIframes.forEach(i => videoObserver.observe(i));
-    } else {
-        // Fallback: try to play all videos muted when no IntersectionObserver
-        const galleryVideos = document.querySelectorAll('.gallery-video');
-        galleryVideos.forEach(v => {
-            try { v.muted = true; v.play(); } catch (e) {}
-        });
+        sectionObserver.observe(gallerySection);
     }
     
     // ==========================================================================
@@ -564,7 +509,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
+
+// NOTE: Masonry and imagesLoaded are intentionally not used for the basic gallery.
+// The gallery markup and CSS are simplified to a row-based layout.
+    // Masonry init: ensure we only use it if scripts are available and the grid exists
+    function initMasonryIfNeeded() {
+        const masonryGrid = document.querySelector('.js-masonry');
+        if (!masonryGrid) return;
+        if (typeof Masonry === 'undefined' || typeof imagesLoaded === 'undefined') return;
+
+        if (masonryGrid.dataset.msnryInit) return; // already initialized
+
+        let msnry;
+
+        function createMasonry() {
+            if (msnry) return;
+            msnry = new Masonry(masonryGrid, {
+                itemSelector: '.collage-item',
+                columnWidth: '.grid-sizer',
+                percentPosition: true,
+                gutter: 0,
+                horizontalOrder: true
+            });
+
+            window.addEventListener('resize', function() { if (msnry) msnry.layout(); });
+            masonryGrid.dataset.msnryInit = '1';
+        }
+
+        const imgLoad = imagesLoaded(masonryGrid, { background: true });
+        imgLoad.on('progress', function() { if (msnry) msnry.layout(); });
+        imgLoad.on('always', function() { createMasonry(); if (msnry) msnry.layout(); });
+
+        // Wait for video metadata too
+        const videos = masonryGrid.querySelectorAll('video');
+        if (videos.length > 0) {
+            let ready = 0;
+            videos.forEach(v => {
+                if (v.readyState >= 1) { ready++; }
+                else v.addEventListener('loadedmetadata', function() { ready++; if (msnry) msnry.layout(); if (ready === videos.length) { createMasonry(); if (msnry) msnry.layout(); } });
+            });
+            if (ready === videos.length) { createMasonry(); if (msnry) msnry.layout(); }
+        }
+
+        // Safety final layout after full load
+        window.addEventListener('load', function() { if (!msnry) createMasonry(); if (msnry) msnry.layout(); });
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMasonryIfNeeded); else initMasonryIfNeeded();
     document.addEventListener('mouseout', function(e) {
         if (e.target.closest('.service-image-slider')) {
             const slider = e.target.closest('.service-image-slider');
