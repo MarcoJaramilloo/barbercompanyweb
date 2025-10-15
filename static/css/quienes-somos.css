@@ -30,64 +30,15 @@ section.hero.hero-small {
 
 /* Título principal del hero - SOBRE NOSOTROS */
 .hero h1 {
-    font-family: 'Archivo Black', 'Arial Black', sans-serif !important;
-    font-size: 4rem !important;
-    font-weight: 900 !important;
-    color: #E6C68A !important; /* Color dorado claro como en la imagen */
-    text-transform: uppercase !important;
-    letter-spacing: 3px !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
-    margin-bottom: 1rem !important;
-    line-height: 1.1 !important;
+    font-family: 'Archivo Black', 'Arial Black', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #E6C68A;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 0.6rem;
+    line-height: 1.1;
 }
-
-/* Subtítulo del hero */
-.hero .subtitle {
-    font-family: 'Ubuntu', 'Helvetica', sans-serif !important;
-    font-size: 1.3rem !important;
-    font-weight: 400 !important;
-    color: rgba(255, 255, 255, 0.95) !important;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
-    letter-spacing: 0.5px !important;
-    line-height: 1.4 !important;
-}
-
-/* ====================================================================
-   CONTENIDO ELEGANTE
-   ==================================================================== */
-
-.contenido-elegante {
-    background: #ffffff !important;
-    padding: 2rem;
-    border-radius: 8px;
-}
-
-/* Título secundario con Bebas Neue */
-.contenido-elegante h3.titulo-secundario-bold {
-    font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
-    font-size: 2.8rem !important;
-    font-weight: 400 !important;
-    letter-spacing: 2px !important;
-    color: #2c2c2c !important;
-    margin-bottom: 15px !important;
-    text-transform: uppercase !important;
-    line-height: 1.2 !important;
-    display: block !important;
-    text-align: center !important;
-}
-
-/* Texto justificado */
-.contenido-elegante .descripcion-detallada {
-    text-align: justify !important;
-    text-justify: inter-word;
-    line-height: 1.7;
-    color: #444;
-}
-
-/* ====================================================================
-   OTROS ELEMENTOS
-   ==================================================================== */
-
 .logo-superior {
     text-align: center;
     margin-bottom: 1.5rem;
