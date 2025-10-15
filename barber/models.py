@@ -206,9 +206,7 @@ class QuienesSomos(models.Model):
     historia_contenido = models.TextField(blank=True, null=True)
     historia_imagen = models.ImageField(upload_to="quienes_somos/", blank=True, null=True)
     
-    # Misión, visión y valores
-    mision = models.TextField(blank=True, null=True)
-    vision = models.TextField(blank=True, null=True)
+    # Valores (se eliminan Misión y Visión por no usarse en la web)
     valores = models.TextField(blank=True, null=True)
     
     # Galería de Instalaciones y Ambiente
