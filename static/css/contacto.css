@@ -202,21 +202,10 @@
 
 .route-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 0.6rem;
     margin-bottom: 1rem;
 }
-
-.qr-wrap {
-    margin-top: 0.5rem;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.qr-wrap img { background: #fff; border-radius: 8px; }
-.qr-wrap span { font-size: 0.85rem; color: #bbb; }
 
 .route-tips { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
 .route-tips li { color: #ccc; font-size: 0.95rem; }
