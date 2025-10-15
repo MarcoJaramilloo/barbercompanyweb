@@ -397,13 +397,15 @@ section.hero.hero-small {
     }
 
     /* ===== HERO SECTION RESPONSIVE ===== */
-    /* Ajustar hero para que funcione con header responsive */
+    /* Ajustar hero para que NO tape el navbar y se vea como en Inicio */
     section.hero.hero-small {
-        height: 32vh !important;
-        min-height: 180px !important;
+        height: 30vh !important;
+        min-height: 200px !important;
+        max-height: 300px !important;
         margin-top: 0 !important;
         justify-content: center !important;
-        padding-top: 10px !important;
+        padding-top: 20px !important;
+        background-position: center center !important;
     }
 
     /* Hero content responsive */
@@ -425,14 +427,15 @@ section.hero.hero-small {
         padding: 2rem 0 !important;
     }
 
-    /* Título hero responsive */
+    /* Título hero responsive - más pequeño para no tapar navbar */
     .hero h1 {
-        font-size: 2.8rem !important;
-        letter-spacing: 2px !important;
+        font-size: 2.2rem !important;
+        letter-spacing: 1.5px !important;
+        margin-bottom: 0.3rem !important;
     }
 
     .hero .subtitle {
-        font-size: 1.1rem !important;
+        font-size: 0.95rem !important;
         font-weight: 400 !important;
     }
 
@@ -443,6 +446,17 @@ section.hero.hero-small {
     
     .titulo-principal-manuscrito {
         font-size: 2rem;
+    }
+
+    /* Logo superior responsive para móvil */
+    .logo-superior {
+        margin-bottom: 1.5rem;
+        padding: 15px;
+    }
+    
+    .img-logo-superior {
+        max-width: 200px !important;
+        max-height: 200px !important;
     }
 
     .cta-title {

@@ -17,14 +17,14 @@
 <section class="hero hero-small hero-with-image" style="--hero-img: url('{{ quienes_somos.imagen_principal.url }}'); --hero-pos: {{ quienes_somos.posicion_imagen_principal|default:'center top'|safe }};">
     <div class="hero-content fade-in-up">
         <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
-        <p class="subtitle">{{ quienes_somos.subtitulo|default:"Conoce nuestra historia y pasión por la barbería" }}</p>
+        <p class="subtitle">{{ quienes_somos.subtitulo|default:"Estilo, Confianza y Tradición" }}</p>
     </div>
 </section>
 {% else %}
 <section class="hero hero-small">
     <div class="hero-content fade-in-up">
         <h1>{{ quienes_somos.titulo|default:"Quiénes Somos" }}</h1>
-        <p class="subtitle">{{ quienes_somos.subtitulo|default:"Conoce nuestra historia y pasión por la barbería" }}</p>
+        <p class="subtitle">{{ quienes_somos.subtitulo|default:"Estilo, Confianza y Tradición" }}</p>
     </div>
 </section>
 {% endif %}
@@ -105,7 +105,18 @@
             </div>
         </div>
 
-        {# Se eliminó la sección de "Echa un ojo" (instalaciones y sala retro) por no utilizarse #}
+        <!-- Mission, Vision, Values -->
+        {% if quienes_somos.mision or quienes_somos.vision or quienes_somos.valores %}
+        <div class="grid-values">
+            {% if quienes_somos.mision %}
+            <div class="value-card">
+                <div class="icon-gold">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="subtitle-gold">Misión</h3>
+                <p class="text-normal">{{ quienes_somos.mision }}</p>
+            </div>
+            {% endif %}
 
         {# Se eliminó la sección de Misión, Visión y Valores por no usarse #}
     </div>
