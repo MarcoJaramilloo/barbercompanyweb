@@ -105,92 +105,9 @@
             </div>
         </div>
 
-        <!-- Galería de Instalaciones y Ambiente -->
-        <div class="seccion-entretenimiento">
-            <h2 class="titulo-entretenimiento">Echa un ojo</h2>
-            
-            <div class="grid-entretenimiento">
-                <!-- Nuestras Instalaciones -->
-                <div class="categoria-entretenimiento">
-                    <h3 class="categoria-titulo">
-                        <i class="fas fa-cut"></i>
-                        NUESTRAS INSTALACIONES
-                    </h3>
-                    <div class="imagenes-categoria">
-                        {% comment %}
-                        Aquí irán las imágenes de las instalaciones y sillas de barbería
-                        {% endcomment %}
-                        {% if quienes_somos.imagen_instalacion_1 %}
-                            <img src="{{ quienes_somos.imagen_instalacion_1.url }}" alt="Instalaciones 1" class="imagen-ambiente">
-                        {% endif %}
-                        {% if quienes_somos.imagen_instalacion_2 %}
-                            <img src="{{ quienes_somos.imagen_instalacion_2.url }}" alt="Instalaciones 2" class="imagen-ambiente">
-                        {% endif %}
-                        {% if quienes_somos.imagen_instalacion_3 %}
-                            <img src="{{ quienes_somos.imagen_instalacion_3.url }}" alt="Instalaciones 3" class="imagen-ambiente">
-                        {% endif %}
-                    </div>
-                </div>
+        {# Se eliminó la sección de "Echa un ojo" (instalaciones y sala retro) por no utilizarse #}
 
-                <!-- Sala Retro -->
-                <div class="categoria-entretenimiento">
-                    <h3 class="categoria-titulo">
-                        <i class="fas fa-chess-board"></i>
-                        SALA RETRO
-                    </h3>
-                    <p class="subtitulo-categoria">Ambientada en los 90'</p>
-                    <div class="imagenes-categoria">
-                        {% comment %}
-                        Aquí irán las imágenes de la sala retro con billar
-                        {% endcomment %}
-                        {% if quienes_somos.imagen_sala_retro_1 %}
-                            <img src="{{ quienes_somos.imagen_sala_retro_1.url }}" alt="Sala Retro 1" class="imagen-ambiente">
-                        {% endif %}
-                        {% if quienes_somos.imagen_sala_retro_2 %}
-                            <img src="{{ quienes_somos.imagen_sala_retro_2.url }}" alt="Sala Retro 2" class="imagen-ambiente">
-                        {% endif %}
-                        {% if quienes_somos.imagen_sala_retro_3 %}
-                            <img src="{{ quienes_somos.imagen_sala_retro_3.url }}" alt="Sala Retro 3" class="imagen-ambiente">
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mission, Vision, Values -->
-        {% if quienes_somos.mision or quienes_somos.vision or quienes_somos.valores %}
-        <div class="grid-values">
-            {% if quienes_somos.mision %}
-            <div class="value-card">
-                <div class="icon-gold">
-                    <i class="fas fa-bullseye"></i>
-                </div>
-                <h3 class="subtitle-gold">Misión</h3>
-                <p class="text-normal">{{ quienes_somos.mision }}</p>
-            </div>
-            {% endif %}
-
-            {% if quienes_somos.vision %}
-            <div class="value-card">
-                <div class="icon-gold">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <h3 class="subtitle-gold">Visión</h3>
-                <p class="text-normal">{{ quienes_somos.vision }}</p>
-            </div>
-            {% endif %}
-
-            {% if quienes_somos.valores %}
-            <div class="value-card">
-                <div class="icon-gold">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3 class="subtitle-gold">Valores</h3>
-                <p class="text-normal">{{ quienes_somos.valores }}</p>
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
+        {# Se eliminó la sección de Misión, Visión y Valores por no usarse #}
     </div>
 </section>
 

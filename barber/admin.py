@@ -87,8 +87,8 @@ class QuienesSomosAdmin(admin.ModelAdmin):
         ('Historia', {
             'fields': ('historia_titulo', 'historia_contenido', 'historia_imagen')
         }),
-        ('Misión, Visión y Valores', {
-            'fields': ('mision', 'vision', 'valores')
+        ('Valores', {
+            'fields': ('valores',)
         }),
     )
 
